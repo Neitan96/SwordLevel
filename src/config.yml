@@ -330,6 +330,7 @@ Grupos:
         # Level.
         50:
           # Premios de comandos.
+          # Use {1} para obter o UUID do player.
           - 'say o player {0} chegou no level 50'
         100:
           - 'give {0} DIAMOND 5'
