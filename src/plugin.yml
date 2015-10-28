@@ -1,0 +1,15 @@
+name: 'SwordLevel'
+version: 3.0
+description: 'Sistema de level para itens e players.'
+
+author: 'Neitan96'
+website: 'http://www.nathanalmeida.com.br/'
+
+main: 'br.neitan96.swordlevel.SwordLevel'
+
+commands:
+  viewlevel:
+    description: 'Ver o level atual do item na sua mao.'
+    aliases: ['itemlevel']
+    permission: 'swordlevel.viewlevel'
+    usage: 'Use /viewlevel'
