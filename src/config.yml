@@ -216,13 +216,18 @@ Grupos:
 
       # Bonus ganho pelo level
       Bonus:
+
         # Bonus de dano.
-        Damage: '1|2'
-        # Caso true irá multiplicar o dano pelo level.
-        # Exemplo:
-        # Se o dano dor '1|2' e o MultiplierDamage estiver true e o level for 10, o dano será 10|20.
-        # Opcional, Default: false.
-        MultiplierDamage: true
+        Damage:
+          # Dano minimo.
+          # Opcional, Default: 0.
+          DamageMin: 2
+          # Dano maximo.
+          # Opcional, Default: 0.
+          DamageMax: 2
+          # Caso true irá multiplicar o dano minimo e maximo pelo level.
+          # Opcional, Default: false.
+          MultiplierDamage: true
 
         # Dano em area.
         # Opcional.
@@ -236,14 +241,17 @@ Grupos:
           # A distancia do dano em area.
           # Opcional, Default: 3.
           Distance: 3
-          # Bonus do dano em area.
-          # Opcional.
-          Damage: '1|2'
+          # Dano minimo.
+          # Opcional, Default: 0.
+          DamageMin: 1
+          # Dano maximo.
+          # Opcional, Default: 0.
+          DamageMax: 2
           # Caso true o dano vai multiplicado pelo level.
           # Opcional, Default: false.
           MultiplierDamage: false
           # Level minimo para poder usar o dano em area.
-          # Opcional, Default: -1.
+          # Opcional, Default: 1.
           LevelAllow: 20
 
         # Efeitos de porção em quem receber o dano.
@@ -253,11 +261,14 @@ Grupos:
           # Docs: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
           HUNGER:
             # Level minimo para ser ativado.
-            # Opcional, Default: -1.
+            # Opcional, Default: 1.
             LevelAllow: 20
             # Duração do efeito.
             # Opcional, Default: 3.
             SecondsEffect: 2
+            # Level do efeito.
+            # Opcional, Default: 1.
+            Amplifier: 1
             # Provabilidade de ativar o efeito.
             # Opcional, Default: 100.
             Provability: 50
@@ -281,7 +292,7 @@ Grupos:
           # Opcional, Default: false.
           MultiplierProvability: false
           # Level minimo para ser ativado.
-          # Opcional, Default: -1.
+          # Opcional, Default: 1.
           LevelAllow: 10
 
         # Chance de drop itens extras ao quebrar blocos.
@@ -301,7 +312,7 @@ Grupos:
           # Opcional, Default: false.
           MultiplierMultiplier: false
           # O Level em que é ativado a habilidade.
-          # Opcional, Default: -1.
+          # Opcional, Default: 1.
           LevelAllow: 10
 
         # Chance de drop itens extras ao matar mobs.
@@ -356,14 +367,18 @@ Grupos:
         LevelMax: 100
 
       Bonus:
-        Damage: '2|2'
-        MultiplierDamage: true
+
+        Damage:
+          DamageMin: 2
+          DamageMax: 2
+          MultiplierDamage: true
 
         DamageArea:
           Provability: 40
           MultiplierProvability: false
           Distance: 3
-          Damage: '2|2'
+          DamageMin: 2
+          DamageMax: 2
           MultiplierDamage: false
           LevelAllow: 15
 
