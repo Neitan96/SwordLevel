@@ -7,6 +7,9 @@ import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -43,6 +46,16 @@ public class SwordUtil {
             return (Player) playerMethod.invoke(null, uuidplayer);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static final ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
+
+    public static Object eval(String str){
+        try {
+            return engine.eval(str);
+        } catch (ScriptException e) {
             return null;
         }
     }
