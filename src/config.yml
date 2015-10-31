@@ -1,10 +1,4 @@
 Plugin:
-  # Stores:
-  #  - 'SqlLite'.
-  #  - 'MySql'.
-  #  - 'Yaml' OBS: Baixa performace.
-  #  - 'Yml' OBS: Baixa performace.
-  StoreMode: 'SqlLite'
   # Habilitar UUID.
   UUID: true
   # Prefix das mensagens.
@@ -15,8 +9,20 @@ Plugin:
 
 # Configurações dos Storages.
 Sql:
+  # Stores:
+  #  - 'SqlLite'.
+  #  - 'MySql'.
+  #  - 'PostgreSQL'.
+  StoreMode: 'SqlLite'
   # Configurações do MySql.
   MySql:
+    Host: 'localhost'
+    Port: 3306
+    User: 'root'
+    Password: ''
+    Database: 'MinecraftServer'
+  # Configurações do PostgreSQL.
+  PostgreSQL:
     Host: 'localhost'
     Port: 3306
     User: 'root'
