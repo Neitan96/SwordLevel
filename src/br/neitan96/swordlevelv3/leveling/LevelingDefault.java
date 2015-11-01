@@ -26,6 +26,10 @@ public class LevelingDefault implements Leveling{
     protected String leveling = null;
     protected int levelMax = Integer.MAX_VALUE;
 
+    public LevelingDefault(ConfigurationSection section){
+        loadFromConfig(section);
+    }
+
     @Override
     public int getXpKillMob(){
         return xpKillMob;

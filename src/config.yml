@@ -173,257 +173,258 @@ Grupos:
         Count: 4
         Time: 5
 
-    # Sub-grupo por permissão, todos os sub-grupos vão compartilhar o mesmo level e xp,
-    # mas terão opções diferentes.
-    'swordlevel.swords':
+    Permissions:
+      # Sub-grupo por permissão, todos os sub-grupos vão compartilhar o mesmo level e xp,
+      # mas terão opções diferentes.
+      'swordlevel.swords':
 
-      # Configurações do xp adiquirido e level.
-      Leveling:
-        # Xp ganho por matar.
-        Kills:
-          # Quantidade de XP ganha por matar um mob.
-          # Opcional.
-          Mobs: 1
-          # Quantidade de XP ganha por matar um determinado mob.
-          # Caso algum mob nao estiver nessa lista o XP ganho vai ser o XP indicado acima.
+        # Configurações do xp adiquirido e level.
+        Leveling:
+          # Xp ganho por matar.
+          Kills:
+            # Quantidade de XP ganha por matar um mob.
+            # Opcional.
+            Mobs: 1
+            # Quantidade de XP ganha por matar um determinado mob.
+            # Caso algum mob nao estiver nessa lista o XP ganho vai ser o XP indicado acima.
+            # OBS: Sempre coloque em letras maiusculas.
+            # Docs: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+            # Opcional.
+            CustomMobs:
+              ENDER_DRAGON: 20
+            # Quantidade de XP ganha por matar um player.
+            # Opcional.
+            Players: 2
+            # Quantidade de XP ganha por matar um determinado player.
+            # OBS: pode ser o Nick ou UUID.
+            # Opcional.
+            CustomPlayers:
+              Neitan96: 1000
+
+          # Quantidade de XP ganha por quebrar um bloco.
           # OBS: Sempre coloque em letras maiusculas.
-          # Docs: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+          # Docs: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
           # Opcional.
-          CustomMobs:
-            ENDER_DRAGON: 20
-          # Quantidade de XP ganha por matar um player.
+          Blocks:
+            GOLD_ORE: 1
+            DIAMOND_ORE: 2
+
+          # Aqui é quantidade de XP necessario para upar,
+          # Nesse exemplo o xp necessario para upar vai ser o
+          # Level do item ou player multiplicado por 0,35.
+          # Exemplo:
+          # {level}*0.5
+          # Caso o level for 10 a quantidade de xp necessario vai ser 5.
+          LevelUp: '{level}*0.5'
+
+          # Level maximo.
           # Opcional.
-          Players: 2
-          # Quantidade de XP ganha por matar um determinado player.
-          # OBS: pode ser o Nick ou UUID.
+          LevelMax: 100
+
+        # Bonus ganho pelo level
+        Bonus:
+
+          # Bonus de dano.
+          Damage:
+            # Dano minimo.
+            # Opcional, Default: 0.
+            DamageMin: 2
+            # Dano maximo.
+            # Opcional, Default: 0.
+            DamageMax: 2
+            # Caso true irá multiplicar o dano minimo e maximo pelo level.
+            # Opcional, Default: false.
+            MultiplierDamage: true
+
+          # Dano em area.
           # Opcional.
-          CustomPlayers:
-            Neitan96: 1000
-
-        # Quantidade de XP ganha por quebrar um bloco.
-        # OBS: Sempre coloque em letras maiusculas.
-        # Docs: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
-        # Opcional.
-        Blocks:
-          GOLD_ORE: 1
-          DIAMOND_ORE: 2
-
-        # Aqui é quantidade de XP necessario para upar,
-        # Nesse exemplo o xp necessario para upar vai ser o
-        # Level do item ou player multiplicado por 0,35.
-        # Exemplo:
-        # {level}*0.5
-        # Caso o level for 10 a quantidade de xp necessario vai ser 5.
-        LevelUp: '{level}*0.5'
-
-        # Level maximo.
-        # Opcional.
-        LevelMax: 100
-
-      # Bonus ganho pelo level
-      Bonus:
-
-        # Bonus de dano.
-        Damage:
-          # Dano minimo.
-          # Opcional, Default: 0.
-          DamageMin: 2
-          # Dano maximo.
-          # Opcional, Default: 0.
-          DamageMax: 2
-          # Caso true irá multiplicar o dano minimo e maximo pelo level.
-          # Opcional, Default: false.
-          MultiplierDamage: true
-
-        # Dano em area.
-        # Opcional.
-        DamageArea:
-          # A provalidade de sair um dano em area.
-          # Opcional, Default: 100.
-          Provability: 25
-          # Caso true irá multiplicar a provabilidade pelo level.
-          # Opcional, Default: false.
-          MultiplierProvability: false
-          # A distancia do dano em area.
-          # Opcional, Default: 3.
-          Distance: 3
-          # Dano minimo.
-          # Opcional, Default: 0.
-          DamageMin: 1
-          # Dano maximo.
-          # Opcional, Default: 0.
-          DamageMax: 2
-          # Caso true o dano vai multiplicado pelo level.
-          # Opcional, Default: false.
-          MultiplierDamage: false
-          # Level minimo para poder usar o dano em area.
-          # Opcional, Default: 1.
-          LevelAllow: 20
-
-        # Efeitos de porção em quem receber o dano.
-        # Opcional.
-        PotionEffects:
-          # Nome do efeito.
-          # Docs: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
-          HUNGER:
-            # Level minimo para ser ativado.
+          DamageArea:
+            # A provalidade de sair um dano em area.
+            # Opcional, Default: 100.
+            Provability: 25
+            # Caso true irá multiplicar a provabilidade pelo level.
+            # Opcional, Default: false.
+            MultiplierProvability: false
+            # A distancia do dano em area.
+            # Opcional, Default: 3.
+            Distance: 3
+            # Dano minimo.
+            # Opcional, Default: 0.
+            DamageMin: 1
+            # Dano maximo.
+            # Opcional, Default: 0.
+            DamageMax: 2
+            # Caso true o dano vai multiplicado pelo level.
+            # Opcional, Default: false.
+            MultiplierDamage: false
+            # Level minimo para poder usar o dano em area.
             # Opcional, Default: 1.
             LevelAllow: 20
-            # Duração do efeito.
-            # Opcional, Default: 3.
-            SecondsEffect: 2
-            # Level do efeito.
+
+          # Efeitos de porção em quem receber o dano.
+          # Opcional.
+          PotionEffects:
+            # Nome do efeito.
+            # Docs: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
+            HUNGER:
+              # Level minimo para ser ativado.
+              # Opcional, Default: 1.
+              LevelAllow: 20
+              # Duração do efeito.
+              # Opcional, Default: 3.
+              SecondsEffect: 2
+              # Level do efeito.
+              # Opcional, Default: 1.
+              Amplifier: 1
+              # Provabilidade de ativar o efeito.
+              # Opcional, Default: 100.
+              Provability: 50
+              # Caso true a provabilidade será multiplicada pelo level.
+              # Opcional, Default: false.
+              MultiplierProvability: true
+
+            CONFUSION:
+              LevelAllow: 50
+              SecondsEffect: 5
+              Provability: 20
+              MultiplierProvability: false
+
+          # Trovão.
+          # Opcional.
+          Thunder:
+            # Provabilidade de ser ativado.
+            # Opcional, Default: 100.
+            Provability: 20
+            # Caso true a provabilidade vai ser multiplicada pelo level.
+            # Opcional, Default: false.
+            MultiplierProvability: false
+            # Level minimo para ser ativado.
             # Opcional, Default: 1.
-            Amplifier: 1
-            # Provabilidade de ativar o efeito.
+            LevelAllow: 10
+
+          # Chance de drop itens extras ao quebrar blocos.
+          # Opcional.
+          DropBlock:
+            # Provabilidade de dropar itens extras.
+            # Opcional, Default: 100.
+            Provability: 50
+            # Caso true a provabilidade vai ser multiplicada pelo level.
+            # Opcional, Default: false.
+            MultiplierProvability: false
+            # Multiplicador dos drops,
+            # Ex: Se colocar 2 ira duplicar os drops.
+            # Opcional, Default: 2.
+            Multiplier: 2
+            # Caso true o multiplicador será multicado pelo level.
+            # Opcional, Default: false.
+            MultiplierMultiplier: false
+            # O Level em que é ativado a habilidade.
+            # Opcional, Default: 1.
+            LevelAllow: 10
+
+          # Chance de drop itens extras ao matar mobs.
+          # Opcional.
+          DropMob:
+            # Provabilidade de multiplicar.
             # Opcional, Default: 100.
             Provability: 50
             # Caso true a provabilidade será multiplicada pelo level.
             # Opcional, Default: false.
-            MultiplierProvability: true
-
-          CONFUSION:
-            LevelAllow: 50
-            SecondsEffect: 5
-            Provability: 20
             MultiplierProvability: false
+            # O multiplicador.
+            # Exemplo: 2 irá duplicar, 3 irá triplicar.
+            # Opcional, Default: 2.
+            Multiplier: 2
+            # Caso true irá multiplicar o mutiplicador pelo level.
+            # Opcional, Default: false.
+            MultiplierMulplier: false
+            # Level minimo para ativar.
+            # Opcional, Default: -1.
+            LevelAllow: 10
 
-        # Trovão.
+        # Premios para os players que chegar em um certo level.
         # Opcional.
-        Thunder:
-          # Provabilidade de ser ativado.
-          # Opcional, Default: 100.
-          Provability: 20
-          # Caso true a provabilidade vai ser multiplicada pelo level.
-          # Opcional, Default: false.
-          MultiplierProvability: false
-          # Level minimo para ser ativado.
-          # Opcional, Default: 1.
-          LevelAllow: 10
+        Rewards:
+          # Level.
+          50:
+            # Premios de comandos.
+            # Use {1} para obter o UUID do player.
+            - 'say o player {0} chegou no level 50'
+          100:
+            - 'give {0} DIAMOND 5'
 
-        # Chance de drop itens extras ao quebrar blocos.
-        # Opcional.
-        DropBlock:
-          # Provabilidade de dropar itens extras.
-          # Opcional, Default: 100.
-          Provability: 50
-          # Caso true a provabilidade vai ser multiplicada pelo level.
-          # Opcional, Default: false.
-          MultiplierProvability: false
-          # Multiplicador dos drops,
-          # Ex: Se colocar 2 ira duplicar os drops.
-          # Opcional, Default: 2.
-          Multiplier: 2
-          # Caso true o multiplicador será multicado pelo level.
-          # Opcional, Default: false.
-          MultiplierMultiplier: false
-          # O Level em que é ativado a habilidade.
-          # Opcional, Default: 1.
-          LevelAllow: 10
+      'swordlevel.swordsvip':
 
-        # Chance de drop itens extras ao matar mobs.
-        # Opcional.
-        DropMob:
-          # Provabilidade de multiplicar.
-          # Opcional, Default: 100.
-          Provability: 50
-          # Caso true a provabilidade será multiplicada pelo level.
-          # Opcional, Default: false.
-          MultiplierProvability: false
-          # O multiplicador.
-          # Exemplo: 2 irá duplicar, 3 irá triplicar.
-          # Opcional, Default: 2.
-          Multiplier: 2
-          # Caso true irá multiplicar o mutiplicador pelo level.
-          # Opcional, Default: false.
-          MultiplierMulplier: false
-          # Level minimo para ativar.
-          # Opcional, Default: -1.
-          LevelAllow: 10
+        Leveling:
 
-      # Premios para os players que chegar em um certo level.
-      # Opcional.
-      Rewards:
-        # Level.
-        50:
-          # Premios de comandos.
-          # Use {1} para obter o UUID do player.
-          - 'say o player {0} chegou no level 50'
-        100:
-          - 'give {0} DIAMOND 5'
+          Kills:
+            Mobs: 2
+            CustomMobs:
+              ENDER_DRAGON: 50
 
-    'swordlevel.swordsvip':
+            Players: 4
+            CustomPlayers:
+              Neitan96: 5000
 
-      Leveling:
+          Blocks:
+            GOLD_ORE: 2
+            DIAMOND_ORE: 4
 
-        Kills:
-          Mobs: 2
-          CustomMobs:
-            ENDER_DRAGON: 50
+          LevelUp: '{level}*0.5'
+          LevelMax: 100
 
-          Players: 4
-          CustomPlayers:
-            Neitan96: 5000
+        Bonus:
 
-        Blocks:
-          GOLD_ORE: 2
-          DIAMOND_ORE: 4
+          Damage:
+            DamageMin: 2
+            DamageMax: 2
+            MultiplierDamage: true
 
-        LevelUp: '{level}*0.5'
-        LevelMax: 100
-
-      Bonus:
-
-        Damage:
-          DamageMin: 2
-          DamageMax: 2
-          MultiplierDamage: true
-
-        DamageArea:
-          Provability: 40
-          MultiplierProvability: false
-          Distance: 3
-          DamageMin: 2
-          DamageMax: 2
-          MultiplierDamage: false
-          LevelAllow: 15
-
-        PotionEffects:
-          HUNGER:
+          DamageArea:
+            Provability: 40
+            MultiplierProvability: false
+            Distance: 3
+            DamageMin: 2
+            DamageMax: 2
+            MultiplierDamage: false
             LevelAllow: 15
-            SecondsEffect: 3
-            Provability: 70
-            MultiplierProvability: true
 
-          CONFUSION:
-            LevelAllow: 40
-            SecondsEffect: 7
+          PotionEffects:
+            HUNGER:
+              LevelAllow: 15
+              SecondsEffect: 3
+              Provability: 70
+              MultiplierProvability: true
+
+            CONFUSION:
+              LevelAllow: 40
+              SecondsEffect: 7
+              Provability: 25
+              MultiplierProvability: false
+
+          Thunder:
             Provability: 25
             MultiplierProvability: false
+            LevelAllow: 5
 
-        Thunder:
-          Provability: 25
-          MultiplierProvability: false
-          LevelAllow: 5
+          DropBlock:
+            Provability: 60
+            MultiplierProvability: false
+            Multiplier: 2
+            MultiplierMultiplier: false
+            LevelAllow: 5
 
-        DropBlock:
-          Provability: 60
-          MultiplierProvability: false
-          Multiplier: 2
-          MultiplierMultiplier: false
-          LevelAllow: 5
+          DropMob:
+            Provability: 70
+            MultiplierProvability: false
+            Multiplier: 2
+            MultiplierMulplier: false
+            LevelAllow: 5
 
-        DropMob:
-          Provability: 70
-          MultiplierProvability: false
-          Multiplier: 2
-          MultiplierMulplier: false
-          LevelAllow: 5
-
-      Rewards:
-        50:
-          - 'say o player {0} chegou no level 50'
-        80:
-          - 'give {0} DIAMOND 5'
-        100:
-          - 'give {0} DIAMOND 15'
+        Rewards:
+          50:
+            - 'say o player {0} chegou no level 50'
+          80:
+            - 'give {0} DIAMOND 5'
+          100:
+            - 'give {0} DIAMOND 15'
