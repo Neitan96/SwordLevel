@@ -1,5 +1,6 @@
 package br.neitan96.swordlevelv3.leveler;
 
+import br.neitan96.swordlevelv3.SwordLevel;
 import br.neitan96.swordlevelv3.leveling.Leveling;
 import br.neitan96.swordlevelv3.manager.Group;
 import br.neitan96.swordlevelv3.manager.GroupManager;
@@ -8,8 +9,10 @@ import br.neitan96.swordlevelv3.rewards.RewardList;
 import br.neitan96.swordlevelv3.storage.level.StorageLevel;
 import br.neitan96.swordlevelv3.storage.ranks.StorageRank;
 import br.neitan96.swordlevelv3.util.SwordUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.PluginManager;
 
 /**
  * Project: SwordLevel
@@ -20,9 +23,17 @@ import org.bukkit.inventory.ItemStack;
 public class Leveler{
 
     protected final GroupManager manager;
+    protected final OnBreak onBreak;
+    protected final OnKill onKill;
 
     public Leveler(GroupManager manager){
         this.manager = manager;
+        this.onBreak = new OnBreak(this);
+        this.onKill = new OnKill(this);
+
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(onBreak, SwordLevel.getInstance());
+        pluginManager.registerEvents(onKill, SwordLevel.getInstance());
     }
 
     public GroupManager getManager(){

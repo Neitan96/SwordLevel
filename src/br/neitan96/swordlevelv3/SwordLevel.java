@@ -2,12 +2,15 @@ package br.neitan96.swordlevelv3;
 
 import br.neitan96.swordlevelv3.connector.Connector;
 import br.neitan96.swordlevelv3.connector.ConnectorBase;
+import br.neitan96.swordlevelv3.leveler.Leveler;
+import br.neitan96.swordlevelv3.manager.GroupManager;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import br.neitan96.swordlevelv3.util.YamlUTF8;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -26,10 +29,11 @@ public class SwordLevel extends JavaPlugin{
     private static String prefixCommands = null;
     private static String prefixErrors = null;
 
+    private static Leveler leveler = null;
+
     @Override
     public void onEnable(){
-        if(instance == null)
-            instance = this;
+        instance = this;
 
         File configFile = new File(getDataFolder(), "config.yml");
 
@@ -59,10 +63,18 @@ public class SwordLevel extends JavaPlugin{
         prefixCommands = section.getString("PrefixCommands");
         prefixErrors = section.getString("PrefixErrors");
 
+        leveler = new Leveler(
+                new GroupManager()
+        );
+        leveler.getManager().loadFromConfig(
+                config.getConfigurationSection("Grupos")
+        );
+
     }
 
     @Override
     public void onDisable(){
+        HandlerList.unregisterAll(this);
         if(connector != null)
             connector.closeConnection();
     }
@@ -95,4 +107,7 @@ public class SwordLevel extends JavaPlugin{
         return connector;
     }
 
+    public static Leveler getLeveler(){
+        return leveler;
+    }
 }
