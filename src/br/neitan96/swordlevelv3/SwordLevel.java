@@ -2,7 +2,8 @@ package br.neitan96.swordlevelv3;
 
 import br.neitan96.swordlevelv3.connector.Connector;
 import br.neitan96.swordlevelv3.connector.ConnectorBase;
-import br.neitan96.swordlevelv3.events.leveler.Leveler;
+import br.neitan96.swordlevelv3.events.Bonuses;
+import br.neitan96.swordlevelv3.events.Leveler;
 import br.neitan96.swordlevelv3.manager.GroupManager;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import br.neitan96.swordlevelv3.util.YamlUTF8;
@@ -30,6 +31,7 @@ public class SwordLevel extends JavaPlugin{
     private static String prefixErrors = null;
 
     private static Leveler leveler = null;
+    private static Bonuses bonuses = null;
 
     @Override
     public void onEnable(){
@@ -62,12 +64,11 @@ public class SwordLevel extends JavaPlugin{
         prefixCommands = section.getString("PrefixCommands");
         prefixErrors = section.getString("PrefixErrors");
 
-        leveler = new Leveler(
-                new GroupManager()
-        );
-        leveler.getManager().loadFromConfig(
-                config.getConfigurationSection("Grupos")
-        );
+        GroupManager groupManager = new GroupManager();
+        groupManager.loadFromConfig(config.getConfigurationSection("Grupos"));
+
+        leveler = new Leveler(groupManager);
+        bonuses = new Bonuses(groupManager);
 
     }
 
@@ -108,5 +109,9 @@ public class SwordLevel extends JavaPlugin{
 
     public static Leveler getLeveler(){
         return leveler;
+    }
+
+    public static Bonuses getBonuses(){
+        return bonuses;
     }
 }

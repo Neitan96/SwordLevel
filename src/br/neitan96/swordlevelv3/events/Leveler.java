@@ -1,6 +1,7 @@
-package br.neitan96.swordlevelv3.events.leveler;
+package br.neitan96.swordlevelv3.events;
 
 import br.neitan96.swordlevelv3.SwordLevel;
+import br.neitan96.swordlevelv3.antitheft.AntiTheft;
 import br.neitan96.swordlevelv3.leveling.Leveling;
 import br.neitan96.swordlevelv3.manager.Group;
 import br.neitan96.swordlevelv3.manager.GroupManager;
@@ -10,9 +11,15 @@ import br.neitan96.swordlevelv3.storage.level.StorageLevel;
 import br.neitan96.swordlevelv3.storage.ranks.StorageRank;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Block;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.PluginManager;
 
 /**
  * Project: SwordLevel
@@ -20,20 +27,14 @@ import org.bukkit.plugin.PluginManager;
  * Since: 02/Nov/2015 03:24
  * Created by Neitan96 on 02/11/15.
  */
-public class Leveler{
+public class Leveler implements Listener{
 
     protected final GroupManager manager;
-    protected final OnBreak onBreak;
-    protected final OnKill onKill;
 
     public Leveler(GroupManager manager){
         this.manager = manager;
-        this.onBreak = new OnBreak(this);
-        this.onKill = new OnKill(this);
 
-        PluginManager pluginManager = Bukkit.getPluginManager();
-        pluginManager.registerEvents(onBreak, SwordLevel.getInstance());
-        pluginManager.registerEvents(onKill, SwordLevel.getInstance());
+        Bukkit.getPluginManager().registerEvents(this, SwordLevel.getInstance());
     }
 
     public GroupManager getManager(){
@@ -51,9 +52,6 @@ public class Leveler{
         String uuidPlayer = SwordUtil.getUUIDPlayer(player);
 
         StorageLevel storageLevel = group.getStorageLevel(uuidPlayer, itemInHand);
-
-        if(storageLevel == null)
-            return;
 
         int levelNow = storageLevel.getLevel();
         int levelWin = 0;
@@ -101,6 +99,73 @@ public class Leveler{
 
         if(storageRank != null)
             storageRank.updateScore(uuidPlayer, levelWin, xpWin, levelNow, xpNow);
+    }
+
+
+    @EventHandler
+    protected void onBreak(BlockBreakEvent event){
+
+        Block block = event.getBlock();
+        Player player = event.getPlayer();
+
+        if(player == null)
+            return;
+
+        String uuidPlayer = SwordUtil.getUUIDPlayer(player);
+        ItemStack itemInHand = player.getItemInHand();
+        Group group = manager.getGroupConditions(player, itemInHand);
+
+        if(group == null)
+            return;
+
+        String permission = group.getPermission(player);
+        AntiTheft antiTheft = group.getAntiTheft();
+
+        if(antiTheft != null && !antiTheft.validAction(player, block))
+            return;
+
+        Leveling leveling = group.getLeveling(permission);
+
+        int xpBreakBlock = leveling.getXpBreakBlock(block.getType());
+
+        if(xpBreakBlock < 1)
+            return;
+
+        leveler(player, permission, itemInHand, group, xpBreakBlock);
+    }
+
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    protected void onKill(EntityDeathEvent event){
+
+        LivingEntity entity = event.getEntity();
+        Player killer = entity.getKiller();
+
+        if(killer == null)
+            return;
+
+        String uuidPlayer = SwordUtil.getUUIDPlayer(killer);
+        ItemStack itemInHand = killer.getItemInHand();
+        Group group = manager.getGroupConditions(killer, itemInHand);
+
+        if(group == null)
+            return;
+
+        String permission = group.getPermission(killer);
+        AntiTheft antiTheft = group.getAntiTheft();
+
+        if(antiTheft != null &&  !antiTheft.validAction(killer, entity))
+            return;
+
+        Leveling leveling = group.getLeveling(permission);
+
+        int xpKillMob = leveling.getXpKillMob(entity.getType());
+
+        if(xpKillMob < 1)
+            return;
+
+        leveler(killer, permission, itemInHand, group, xpKillMob);
+
     }
 
 }

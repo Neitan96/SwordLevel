@@ -33,7 +33,7 @@ public class GroupManager implements ConfigLoader{
 
     public Group getGroupConditions(Player player, ItemStack item){
         for (Group group : groupList){
-            if(group.getConditions().conditionValid(player, item))
+            if(group.getConditions().conditionValid(player, item) && group.getPermission(player) != null)
                 return group;
         }
         return null;
