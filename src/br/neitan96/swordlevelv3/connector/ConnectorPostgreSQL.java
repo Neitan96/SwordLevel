@@ -20,7 +20,7 @@ public class ConnectorPostgreSQL extends ConnectorBase{
         section = section.getConfigurationSection("PostgreSQL");
         url = "jdbc:postgresql://"+section.getString("Host")+
                 (section.contains("Port") ? ":" + section.getString("Port") : "")+
-                section.getString("Database");
+                "/"+section.getString("Database");
         user = section.getString("User");
         password = section.getString("Password");
     }

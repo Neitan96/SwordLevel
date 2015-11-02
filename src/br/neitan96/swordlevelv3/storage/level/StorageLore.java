@@ -1,7 +1,9 @@
 package br.neitan96.swordlevelv3.storage.level;
 
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +24,7 @@ public class StorageLore implements StorageLevel{
     protected int lineLevel = -1;
     protected int lineXp = -1;
 
-    protected int levelNow = 0;
+    protected int levelNow = 1;
     protected int xpNow = 0;
 
     public StorageLore(ItemStack item, String levelPrefix, String levelSufix, String xpPrefix, String xpSufix) {
@@ -111,35 +113,40 @@ public class StorageLore implements StorageLevel{
     public void reloadLinesLore(){
         List<String> lore = item.getItemMeta().getLore();
 
-        for (int i = 0; i < lore.size(); i++){
-            String line = lore.get(i);
+        if(lore != null)
+            for (int i = 0; i < lore.size(); i++){
+                String line = lore.get(i);
 
-            if(line.startsWith(levelPrefix) && line.endsWith(levelSufix))
-                lineLevel = i;
+                if(line.startsWith(levelPrefix) && line.endsWith(levelSufix))
+                    lineLevel = i;
 
-            else if(line.startsWith(xpPrefix) && line.endsWith(xpSufix))
-                lineXp = i;
+                else if(line.startsWith(xpPrefix) && line.endsWith(xpSufix))
+                    lineXp = i;
 
-        }
+            }
     }
 
     public void reloadValuesLore(){
         List<String> lore = item.getItemMeta().getLore();
 
-        String lineLevellore = lore.get(lineLevel);
-        String lineXPlore = lore.get(lineXp);
+        if(lore == null)
+            return;
 
         try{
 
-            levelNow = Integer.parseInt(lineLevellore
-                            .substring(0, lineLevellore.length()-levelSufix.length())
-                            .substring(levelPrefix.length())
-            );
+            if(lineLevel >= 0){
+                String lineLevellore = lore.get(lineLevel);
+                levelNow = Integer.parseInt(lineLevellore
+                        .substring(0, lineLevellore.length() - levelSufix.length())
+                        .substring(levelPrefix.length()));
+            }
 
-            xpNow = Integer.parseInt(lineXPlore
-                            .substring(0, lineXPlore.length()-xpSufix.length())
-                            .substring(xpPrefix.length())
-            );
+            if(lineXp >= 0){
+                String lineXPlore = lore.get(lineXp);
+                xpNow = Integer.parseInt(lineXPlore
+                        .substring(0, lineXPlore.length() - xpSufix.length())
+                        .substring(xpPrefix.length()));
+            }
 
         }catch (Exception e){
             e.printStackTrace();
@@ -151,22 +158,25 @@ public class StorageLore implements StorageLevel{
         String levelString = levelPrefix+levelNow+levelSufix;
         String xpString = xpPrefix+xpNow+xpSufix;
 
-        List<String> lore = item.getItemMeta().getLore();
+        ItemMeta itemMeta = item.getItemMeta();
+        List<String> lore = itemMeta.getLore();
+        if(lore == null) lore = new ArrayList<>();
 
-        if(lineLevel > 0)
+        if(lineLevel >= 0)
             lore.set(lineLevel, levelString);
         else {
             lineLevel = lore.size();
             lore.add(levelString);
         }
 
-        if(lineXp > 0)
+        if(lineXp >= 0)
             lore.set(lineXp, xpString);
         else {
             lineXp = lore.size();
             lore.add(xpString);
         }
 
-        item.getItemMeta().setLore(lore);
+        itemMeta.setLore(lore);
+        item.setItemMeta(itemMeta);
     }
 }

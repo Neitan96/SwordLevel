@@ -72,7 +72,9 @@ public class LevelingDefault implements Leveling{
     public int calculateXPRequired(int level){
         String required = getXpRequired().replace("{level}", String.valueOf(level));
         Object eval = SwordUtil.eval(required);
-        return (int) eval;
+        if(eval == null)
+            return -1;
+        return (int) Math.ceil((Double) eval);
     }
 
     @Override

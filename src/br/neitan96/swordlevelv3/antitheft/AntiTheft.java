@@ -34,11 +34,11 @@ public interface AntiTheft extends ConfigLoader{
     int getTimeBlock();
 
 
-    boolean validAction(String player, Player entity);
+    boolean validAction(Player player, Player entity);
 
-    boolean validAction(String player, LivingEntity entity);
+    boolean validAction(Player player, LivingEntity entity);
 
-    boolean validAction(String player, Block block);
+    boolean validAction(Player player, Block block);
 
 
     void clearCache();

@@ -16,6 +16,10 @@ public class BonusPotionEffects extends Bonus{
 
     protected SwordEffect[] effects = new SwordEffect[0];
 
+    public BonusPotionEffects(ConfigurationSection section){
+        loadFromConfig(section);
+    }
+
     @Override
     public void applyBonus(EntityDamageByEntityEvent event, int level, Player killer) {
         for (SwordEffect effect : effects) {

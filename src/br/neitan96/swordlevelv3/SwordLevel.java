@@ -2,7 +2,7 @@ package br.neitan96.swordlevelv3;
 
 import br.neitan96.swordlevelv3.connector.Connector;
 import br.neitan96.swordlevelv3.connector.ConnectorBase;
-import br.neitan96.swordlevelv3.leveler.Leveler;
+import br.neitan96.swordlevelv3.events.leveler.Leveler;
 import br.neitan96.swordlevelv3.manager.GroupManager;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import br.neitan96.swordlevelv3.util.YamlUTF8;
@@ -40,7 +40,6 @@ public class SwordLevel extends JavaPlugin{
         if(!configFile.exists())
             saveResource("config.yml", false);
 
-        YamlUTF8 config =  null;
         try{
             config = new YamlUTF8(configFile);
         }catch (IOException e){

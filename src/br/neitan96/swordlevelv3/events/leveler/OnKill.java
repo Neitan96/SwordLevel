@@ -1,4 +1,4 @@
-package br.neitan96.swordlevelv3.leveler;
+package br.neitan96.swordlevelv3.events.leveler;
 
 import br.neitan96.swordlevelv3.antitheft.AntiTheft;
 import br.neitan96.swordlevelv3.leveling.Leveling;
@@ -48,7 +48,7 @@ public class OnKill implements Listener{
 
         AntiTheft antiTheft = group.getAntiTheft();
 
-        if(antiTheft != null &&  !antiTheft.validAction(uuidPlayer, entity))
+        if(antiTheft != null &&  !antiTheft.validAction(killer, entity))
             return;
 
         Leveling leveling = group.getLeveling(permission);

@@ -20,7 +20,7 @@ public class ConnectorMySql extends ConnectorBase{
         section = section.getConfigurationSection("MySql");
         url = "jdbc:mysql://"+section.getString("Host")+
                 (section.contains("Port") ? ":" + section.getString("Port") : "")+
-                section.getString("Database");
+                "/"+section.getString("Database");
         user = section.getString("User");
         password = section.getString("Password");
     }

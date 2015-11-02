@@ -15,6 +15,10 @@ public class BonusDamage extends Bonus{
     protected double damageMax = 0;
     protected boolean multiplierDamage = false;
 
+    public BonusDamage(ConfigurationSection section){
+        loadFromConfig(section);
+    }
+
     @Override
     public void applyBonus(EntityDamageByEntityEvent event, int level, Player killer) {
 

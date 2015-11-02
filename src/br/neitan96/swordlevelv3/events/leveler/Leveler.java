@@ -1,4 +1,4 @@
-package br.neitan96.swordlevelv3.leveler;
+package br.neitan96.swordlevelv3.events.leveler;
 
 import br.neitan96.swordlevelv3.SwordLevel;
 import br.neitan96.swordlevelv3.leveling.Leveling;
@@ -77,7 +77,7 @@ public class Leveler{
 
         if(messages != null){
 
-            String xpReward = messages.getXpReward(xpWin, xpRequired);
+            String xpReward = messages.getXpReward(xpWin, xpRequired-xpNow);
 
             if(xpReward != null && !xpReward.isEmpty())
                 player.sendMessage(messages.getPrefix()+xpReward);
@@ -94,7 +94,7 @@ public class Leveler{
 
         RewardList reward = group.getReward(permission);
 
-        if(reward != null)
+        if(reward != null && levelWin > 0)
             reward.sendRewards(player, levelNow);
 
         StorageRank storageRank = group.getStorageRank();

@@ -145,25 +145,29 @@ public class GroupDefault implements Group{
         }
 
         if(section.contains("Permissions")){
-            ConfigurationSection permissions = section.getConfigurationSection("Permissions");
-            Set<String> permissionsKeys = permissions.getKeys(false);
-            this.permissions = permissionsKeys.toArray(new String[permissionsKeys.size()]);
+            ConfigurationSection subGroups = section.getConfigurationSection("Permissions");
+            Set<String> subGroupsNames = subGroups.getKeys(false);
+            this.permissions = new String[subGroupsNames.size()];
 
-            for (String permission : permissionsKeys){
-                if(permissions.contains(permission+".Leveling"))
+            int i = 0;
+            for (String subGroupName : subGroupsNames){
+                String permission = subGroups.getString(subGroupName + ".Permission");
+                permissions[i++] = permission;
+
+                if(subGroups.contains(subGroupName+".Leveling"))
                     levelings.put(
                             permission,
-                            new LevelingDefault(permissions.getConfigurationSection(permission+".Leveling"))
+                            new LevelingDefault(subGroups.getConfigurationSection(subGroupName+".Leveling"))
                     );
-                if(permissions.contains(permission+".Bonus"))
+                if(subGroups.contains(subGroupName+".Bonus"))
                     bonuses.put(
                             permission,
-                            new BonusList(permissions.getConfigurationSection(permission+".Bonus"))
+                            new BonusList(subGroups.getConfigurationSection(subGroupName+".Bonus"))
                     );
-                if(permissions.contains(permission+".Rewards"))
+                if(subGroups.contains(subGroupName+".Rewards"))
                     rewardLists.put(
                             permission,
-                            new RewardsDefault(permissions.getConfigurationSection(permission+".Rewards"))
+                            new RewardsDefault(subGroups.getConfigurationSection(subGroupName+".Rewards"))
                     );
             }
 

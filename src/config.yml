@@ -141,7 +141,7 @@ Grupos:
     # Para limitar a experiencia ganha.
     # Opcional.
     AntiTheft:
-      # Caso o player tiver essa permissao ele verificara o player.
+      # Caso o player tiver essa permissao ele não verificara o player.
       PermissionAllow: 'swordlevel.swordsantitheft'
 
       # Opcional.
@@ -171,7 +171,10 @@ Grupos:
     Permissions:
       # Sub-grupo por permissão, todos os sub-grupos vão compartilhar o mesmo level e xp,
       # mas terão opções diferentes.
-      'swordlevel.swords':
+      # OBS: Você pode criar quantos sub-grupos você quiser.
+      Players:
+
+        Permission: 'swordlevel.swords'
 
         # Configurações do xp adiquirido e level.
         Leveling:
@@ -348,7 +351,9 @@ Grupos:
           100:
             - 'give {0} DIAMOND 5'
 
-      'swordlevel.swordsvip':
+      Vips:
+
+        Permission: 'swordlevel.swordsvip'
 
         Leveling:
 

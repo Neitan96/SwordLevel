@@ -20,7 +20,7 @@ public abstract class ConnectorBase implements Connector, ConfigLoader{
 
     public static final String sqlCreateRanks =
             "CREATE TABLE IF NOT EXISTS `{TableRanks}` (" +
-            "`{ColumnID}` BIGINT NOT NULL PRIMARY KEY UNIQUE AUTO_INCREMENT, " +
+            "`{ColumnID}` INTEGER PRIMARY KEY AUTO_INCREMENT, " +
             "`{ColumnPlayer}` VARCHAR(255), " +
             "`{ColumnGroup}` VARCHAR(128), " +
             "`type` VARCHAR(16), " +
@@ -29,7 +29,7 @@ public abstract class ConnectorBase implements Connector, ConfigLoader{
 
     public static final String sqlCreateLevel =
             "CREATE TABLE IF NOT EXISTS `{TableLevel}` (" +
-            "`{ColumnID}` BIGINT NOT NULL PRIMARY KEY UNIQUE AUTO_INCREMENT, " +
+            "`{ColumnID}` INTEGER PRIMARY KEY AUTO_INCREMENT, " +
             "`{ColumnPlayer}` VARCHAR(255), " +
             "`{ColumnGroup}` VARCHAR(128), " +
             "`xp` BIGINT DEFAULT 0, " +
@@ -102,6 +102,7 @@ public abstract class ConnectorBase implements Connector, ConfigLoader{
         }catch (SQLException e){
             e.printStackTrace();
         }
+        createTables();
     }
 
     @Override

@@ -78,45 +78,58 @@ public class AntiTheftDefault implements AntiTheft{
     }
 
     @Override
-    public boolean validAction(String player, Player entity){
+    public boolean validAction(Player player, Player entity){
+        if(player.hasPermission(permissionAllow))
+            return true;
+
+        String uuidPlayer = SwordUtil.getUUIDPlayer(player);
 
         long nowSame = System.currentTimeMillis() - (getTimeSamePlayer() * 1000);
         long nowAny = System.currentTimeMillis() - (getTimeAnyPlayers() * 1000);
 
         boolean valid =
-                playersKill.countMarks(player, nowSame) <= getCountSamePlayer() &&
-                playersKill.countMarks(player, nowAny, SwordUtil.getUUIDPlayer(entity)) <= getCountAnyPlayers();
+                playersKill.countMarks(uuidPlayer, nowSame) <= getCountSamePlayer() &&
+                playersKill.countMarks(uuidPlayer, nowAny, SwordUtil.getUUIDPlayer(entity)) <= getCountAnyPlayers();
 
         if(!valid)
-            playersKill.add(player, SwordUtil.getUUIDPlayer(entity));
+            playersKill.add(uuidPlayer, SwordUtil.getUUIDPlayer(entity));
 
         return valid;
     }
 
     @Override
-    public boolean validAction(String player, LivingEntity entity){
+    public boolean validAction(Player player, LivingEntity entity){
         if(entity instanceof Player)
             return validAction(player, ((Player) entity));
 
+        if(player.hasPermission(permissionAllow))
+            return true;
+
+        String uuidPlayer = SwordUtil.getUUIDPlayer(player);
+
         long now = System.currentTimeMillis() - (getTimeMob() * 1000);
 
-        boolean valid = mobsKill.countMarks(player, now) <= getCountMob();
+        boolean valid = mobsKill.countMarks(uuidPlayer, now) <= getCountMob();
 
         if(!valid)
-            mobsKill.add(player);
+            mobsKill.add(uuidPlayer);
 
         return valid;
     }
 
     @Override
-    public boolean validAction(String player, Block block){
+    public boolean validAction(Player player, Block block){
+        if(player.hasPermission(permissionAllow))
+            return true;
+
+        String uuidPlayer = SwordUtil.getUUIDPlayer(player);
 
         long now = System.currentTimeMillis() - (getTimeBlock() * 1000);
 
-        boolean valid = blockBreak.countMarks(player, now) <= getCountBlock();
+        boolean valid = blockBreak.countMarks(uuidPlayer, now) <= getCountBlock();
 
         if(!valid)
-            playersKill.add(player);
+            playersKill.add(uuidPlayer);
 
         return valid;
     }
