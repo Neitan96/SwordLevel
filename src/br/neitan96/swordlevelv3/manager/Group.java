@@ -9,6 +9,7 @@ import br.neitan96.swordlevelv3.rewards.RewardList;
 import br.neitan96.swordlevelv3.storage.level.StorageLevel;
 import br.neitan96.swordlevelv3.storage.ranks.StorageRank;
 import br.neitan96.swordlevelv3.util.ConfigLoader;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -32,6 +33,9 @@ public interface Group extends ConfigLoader{
     StorageRank getStorageRank();
 
     AntiTheft getAntiTheft();
+
+
+    String getPermission(Player player);
 
 
     Leveling getLeveling(String permission);

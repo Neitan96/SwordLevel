@@ -14,14 +14,6 @@ public interface SwordMessages extends ConfigLoader{
 
     String getXpReward(int xpWin, int xpMissing);
 
-    String getXpLimitSamePlayer(int playerCount, int time);
-
-    String getXpLimitAnyPlyer(int playerCount, int time);
-
-    String getXpLimitMob(int mobcount, int time);
-
-    String getXpLimitBlock(int blockCount, int time);
-
     String getViewLevel(int levelNow, int xpNow, int xpMissing);
 
 }

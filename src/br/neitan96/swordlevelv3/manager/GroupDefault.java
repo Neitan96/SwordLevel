@@ -17,6 +17,7 @@ import br.neitan96.swordlevelv3.storage.level.StorageMake;
 import br.neitan96.swordlevelv3.storage.ranks.RankerDefault;
 import br.neitan96.swordlevelv3.storage.ranks.StorageRank;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -79,6 +80,16 @@ public class GroupDefault implements Group{
     @Override
     public AntiTheft getAntiTheft(){
         return antiTheft;
+    }
+
+    @Override
+    public String getPermission(Player player){
+        for (String permission : permissions){
+            if(player.hasPermission(permission))
+                return permission;
+        }
+
+        return null;
     }
 
     @Override

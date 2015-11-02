@@ -126,11 +126,6 @@ Grupos:
       LevelUp: 'Seu item upou do level {0} para o level {1}'
       XpReward: 'Seu item ganhou {0} de XP falta {1} para passar de level.'
 
-      XpLimitSamePlayer: 'Seu item passou do limite de matar {0} o mesmo player a cada {1} segundos.'
-      XpLimitAnyPlayer: 'Seu item passou do limite de matar {0} players a cada {1} segundos.'
-      XpLimitMob: 'Seu item passou do limite de matar {0} mobs a cada {1} segundos.'
-      XpLimitBlock: 'Seu item passou do limite de quebrar {0} blocos a cada {1} segundos.'
-
       ViewLevel: 'Você ta no level {0} com {1}/{2} de experiencia'
 
     # Sistema de ranks.

@@ -114,10 +114,10 @@ public class StorageSql implements StorageLevel{
 
             ResultSet result = statement.executeQuery();
 
-            return result.next() ? result.getInt(1) : 1;
+            return result.next() ? result.getInt(1) : 0;
         }catch (SQLException e){
             e.printStackTrace();
-            return 1;
+            return 0;
         }
     }
 

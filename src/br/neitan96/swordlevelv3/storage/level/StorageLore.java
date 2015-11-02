@@ -77,11 +77,13 @@ public class StorageLore implements StorageLevel{
     @Override
     public void setXp(int xpNow) {
         this.xpNow = xpNow;
+        saveInfos();
     }
 
     @Override
     public void setLevel(int levelNow) {
         this.levelNow = levelNow;
+        saveInfos();
     }
 
     public void addLevel(int level){
