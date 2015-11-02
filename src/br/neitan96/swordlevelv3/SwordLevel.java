@@ -66,6 +66,8 @@ public class SwordLevel extends JavaPlugin{
 
         GroupManager groupManager = new GroupManager();
         groupManager.loadFromConfig(config.getConfigurationSection("Grupos"));
+        if(config.contains("DefaultGroup"))
+            groupManager.loadDefault(section.getConfigurationSection("DefaultGroup"));
 
         leveler = new Leveler(groupManager);
         bonuses = new Bonuses(groupManager);

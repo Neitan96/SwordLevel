@@ -1,6 +1,7 @@
 package br.neitan96.swordlevelv3.manager;
 
 import br.neitan96.swordlevelv3.util.ConfigLoader;
+import br.neitan96.swordlevelv3.util.DValue;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -18,6 +19,7 @@ import java.util.Set;
 public class GroupManager implements ConfigLoader{
 
     protected List<Group> groupList = new ArrayList<>();
+    protected DValue<String, String> groupDefault = null;
 
     public List<Group> getGroupList(){
         return groupList;
@@ -33,9 +35,11 @@ public class GroupManager implements ConfigLoader{
 
     public Group getGroupConditions(Player player, ItemStack item){
         for (Group group : groupList){
-            if(group.getConditions().conditionValid(player, item) && group.getPermission(player) != null)
-                return group;
+            if(group.getConditions().conditionValid(player, item))
+                return group.getPermission(player) != null ? group : null;
         }
+        if(groupDefault != null && player.hasPermission(groupDefault.getValue1()))
+            return getGroup(groupDefault.getValue2());
         return null;
     }
 
@@ -61,5 +65,11 @@ public class GroupManager implements ConfigLoader{
                     new GroupDefault(section.getConfigurationSection(groupName))
             );
         }
+    }
+
+    public void loadDefault(ConfigurationSection section){
+        groupDefault = new DValue<>(
+                section.getString("Permission"), section.getString("Group")
+        );
     }
 }

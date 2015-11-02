@@ -1,3 +1,10 @@
+####################################################
+####################SwordLevel######################
+####################by Neitan96#####################
+####################################################
+
+# OBS: Todas as partes marcadas como Opcional podem ser removidas da config.
+
 Plugin:
   # Habilitar UUID.
   UUID: true
@@ -15,6 +22,7 @@ Sql:
   #  - 'PostgreSQL'.
   StoreMode: 'SqlLite'
   # Configurações do MySql.
+  # Opcional.
   MySql:
     Host: 'localhost'
     Port: 3306
@@ -22,6 +30,7 @@ Sql:
     Password: ''
     Database: 'MinecraftServer'
   # Configurações do PostgreSQL.
+  # Opcional.
   PostgreSQL:
     Host: 'localhost'
     Port: 3306
@@ -29,6 +38,7 @@ Sql:
     Password: ''
     Database: 'MinecraftServer'
   # Configurações do Sqlite.
+  # Opcional.
   Sqlite:
     Filename: 'SwordLevel.db'
   # Nome da tabela de ranks.
@@ -38,6 +48,7 @@ Sql:
 
 # Grupo padrão.
 # Esse grupo é usado caso nenhum dos grupos tiver um condition valido para o player.
+# Opcional.
 DefaultGroup:
   Permission: 'swordlevel.defaultgroup'
   Group: 'Swords'
@@ -356,7 +367,6 @@ Grupos:
         Permission: 'swordlevel.swordsvip'
 
         Leveling:
-
           Kills:
             Mobs: 2
             CustomMobs:
