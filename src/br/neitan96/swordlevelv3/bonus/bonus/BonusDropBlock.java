@@ -2,6 +2,7 @@ package br.neitan96.swordlevelv3.bonus.bonus;
 
 import br.neitan96.swordlevelv3.bonus.Bonus;
 import br.neitan96.swordlevelv3.util.SwordUtil;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
@@ -28,9 +29,10 @@ public class BonusDropBlock extends Bonus{
     }
 
     @Override
-    public void applyBonus(BlockBreakEvent event, int level, Player killer) {
+    public void applyBonus(BlockBreakEvent event, int level, Player player) {
         if(level < levelAllow
-                || !SwordUtil.calculateProvability(multiplierProvability ? provability * level : provability))
+                || !SwordUtil.calculateProvability(multiplierProvability ? provability * level : provability)
+                || player.getGameMode() == GameMode.CREATIVE)
             return;
 
         double multiplier = multiplierMultuplier ? this.multiplier*level : this.multiplier;
