@@ -5,7 +5,7 @@ description: 'Sistema de level para itens e players.'
 author: 'Neitan96'
 website: 'http://www.nathanalmeida.com.br/'
 
-main: 'br.neitan96.swordlevel.SwordLevel'
+main: 'br.neitan96.swordlevelv3.SwordLevel'
 
 commands:
   viewlevel:
