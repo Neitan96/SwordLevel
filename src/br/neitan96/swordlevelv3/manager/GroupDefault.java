@@ -150,20 +150,20 @@ public class GroupDefault implements Group{
             this.permissions = permissionsKeys.toArray(new String[permissionsKeys.size()]);
 
             for (String permission : permissionsKeys){
-                if(permissions.contains("Leveling"))
+                if(permissions.contains(permission+".Leveling"))
                     levelings.put(
                             permission,
-                            new LevelingDefault(permissions.getConfigurationSection("Leveling"))
+                            new LevelingDefault(permissions.getConfigurationSection(permission+".Leveling"))
                     );
-                if(permissions.contains("Bonus"))
+                if(permissions.contains(permission+".Bonus"))
                     bonuses.put(
                             permission,
-                            new BonusList(permissions.getConfigurationSection("Bonus"))
+                            new BonusList(permissions.getConfigurationSection(permission+".Bonus"))
                     );
-                if(permissions.contains("Rewards"))
+                if(permissions.contains(permission+".Rewards"))
                     rewardLists.put(
                             permission,
-                            new RewardsDefault(permissions.getConfigurationSection("Rewards"))
+                            new RewardsDefault(permissions.getConfigurationSection(permission+".Rewards"))
                     );
             }
 
