@@ -56,6 +56,9 @@ DefaultGroup:
 Grupos:
   # Grupo "Swords", voce pode criar quantos grupos quiser.
   Swords:
+    # Ativar o leveing no criativo.
+    # Opcional, Default: false.
+    AllowCreative: false
 
     # Condições para o grupo ser ativado.
     Conditions:

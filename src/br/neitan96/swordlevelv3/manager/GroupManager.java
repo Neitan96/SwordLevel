@@ -2,6 +2,7 @@ package br.neitan96.swordlevelv3.manager;
 
 import br.neitan96.swordlevelv3.util.ConfigLoader;
 import br.neitan96.swordlevelv3.util.DValue;
+import org.bukkit.GameMode;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -36,7 +37,14 @@ public class GroupManager implements ConfigLoader{
     public Group getGroupConditions(Player player, ItemStack item){
         for (Group group : groupList){
             if(group.getConditions().conditionValid(player, item))
-                return group.getPermission(player) != null ? group : null;
+                return
+                        group.getPermission(player) != null ?
+                                (
+                                        !group.allowCreative() &&  player.getGameMode() == GameMode.CREATIVE ?
+                                                null :
+                                                group
+                                ) :
+                                null;
         }
         if(groupDefault != null && player.hasPermission(groupDefault.getValue1()))
             return getGroup(groupDefault.getValue2());

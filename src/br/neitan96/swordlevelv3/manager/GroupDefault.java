@@ -42,6 +42,7 @@ public class GroupDefault implements Group{
     protected Map<String, Leveling> levelings = new HashMap<>();
     protected Map<String, Bonus> bonuses = new HashMap<>();
     protected Map<String, RewardList> rewardLists = new HashMap<>();
+    protected boolean allowCreative = false;
 
     public GroupDefault(ConfigurationSection section){
         loadFromConfig(section);
@@ -50,6 +51,11 @@ public class GroupDefault implements Group{
     @Override
     public String getGroupName(){
         return groupName;
+    }
+
+    @Override
+    public boolean allowCreative(){
+        return allowCreative;
     }
 
     @Override
@@ -113,6 +119,8 @@ public class GroupDefault implements Group{
         groupName = section.getCurrentPath().substring(
                 section.getCurrentPath().lastIndexOf(".") + 1
         );
+
+        allowCreative = section.getBoolean("AllowCreative", allowCreative);
 
         if(section.contains("Conditions")){
             conditions = new ConditionsDefault(

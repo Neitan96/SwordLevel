@@ -22,6 +22,8 @@ public interface Group extends ConfigLoader{
 
     String getGroupName();
 
+    boolean allowCreative();
+
     String[] getPermissions();
 
     Conditions getConditions();
