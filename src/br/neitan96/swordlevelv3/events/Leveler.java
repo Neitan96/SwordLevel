@@ -114,10 +114,11 @@ public class Leveler implements Listener{
 
         String uuidPlayer = SwordUtil.getUUIDPlayer(player);
         ItemStack itemInHand = player.getItemInHand();
-        Group group = manager.getGroupConditions(player, itemInHand);
 
         if(itemInHand == null || itemInHand.getType() == Material.AIR)
             return;
+
+        Group group = manager.getGroupConditions(player, itemInHand);
 
         if(group == null)
             return;
@@ -150,10 +151,11 @@ public class Leveler implements Listener{
 
         String uuidPlayer = SwordUtil.getUUIDPlayer(killer);
         ItemStack itemInHand = killer.getItemInHand();
-        Group group = manager.getGroupConditions(killer, itemInHand);
 
         if(itemInHand == null || itemInHand.getType() == Material.AIR)
             return;
+
+        Group group = manager.getGroupConditions(killer, itemInHand);
 
         if(group == null)
             return;
