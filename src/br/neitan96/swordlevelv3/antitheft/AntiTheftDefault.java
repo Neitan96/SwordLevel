@@ -108,8 +108,8 @@ public class AntiTheftDefault implements AntiTheft, Runnable{
         if(entity instanceof Player)
             return validAction(player, ((Player) entity));
 
-        //if(player.hasPermission(permissionAllow))
-        //    return true;
+        if(player.hasPermission(permissionAllow))
+            return true;
 
         String uuidPlayer = SwordUtil.getUUIDPlayer(player);
 

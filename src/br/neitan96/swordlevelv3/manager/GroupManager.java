@@ -35,6 +35,8 @@ public class GroupManager implements ConfigLoader{
     }
 
     public Group getGroupConditions(Player player, ItemStack item){
+        if(player == null || item == null)
+            return null;
         for (Group group : groupList){
             if(group.getConditions().conditionValid(player, item)){
 
