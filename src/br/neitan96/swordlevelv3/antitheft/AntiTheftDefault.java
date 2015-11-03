@@ -98,6 +98,8 @@ public class AntiTheftDefault implements AntiTheft, Runnable{
 
         if(valid)
             playersKill.add(uuidPlayer, SwordUtil.getUUIDPlayer(entity));
+        else
+            SwordLevel.log(uuidPlayer + "(" + player.getName() + ") Não passou pelo AntiTheft por matar um player.", 4);
 
         Bukkit.getScheduler().runTask(SwordLevel.getInstance(), this);
         return valid;
@@ -119,6 +121,8 @@ public class AntiTheftDefault implements AntiTheft, Runnable{
 
         if(valid)
             mobsKill.add(uuidPlayer);
+        else
+            SwordLevel.log(uuidPlayer + "(" + player.getName() + ") Não passou pelo AntiTheft por matar um mob.", 4);
 
         Bukkit.getScheduler().runTask(SwordLevel.getInstance(), this);
         return valid;
@@ -137,6 +141,8 @@ public class AntiTheftDefault implements AntiTheft, Runnable{
 
         if(valid)
             playersKill.add(uuidPlayer);
+        else
+            SwordLevel.log(uuidPlayer + "(" + player.getName() + ") Não passou pelo AntiTheft por quebrar um bloco.", 4);
 
         Bukkit.getScheduler().runTask(SwordLevel.getInstance(), this);
         return valid;
@@ -156,6 +162,7 @@ public class AntiTheftDefault implements AntiTheft, Runnable{
             blockBreak.removeMarks(
                     System.currentTimeMillis()-(getTimeBlock()*1000)
             );
+        SwordLevel.log("Cache do AntiTheft limpo", 3);
     }
 
     @Override

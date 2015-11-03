@@ -1,5 +1,6 @@
 package br.neitan96.swordlevelv3.manager;
 
+import br.neitan96.swordlevelv3.SwordLevel;
 import br.neitan96.swordlevelv3.antitheft.AntiTheft;
 import br.neitan96.swordlevelv3.antitheft.AntiTheftDefault;
 import br.neitan96.swordlevelv3.bonus.Bonus;
@@ -119,6 +120,7 @@ public class GroupDefault implements Group{
         groupName = section.getCurrentPath().substring(
                 section.getCurrentPath().lastIndexOf(".") + 1
         );
+        SwordLevel.log("Lendo configurações do grupo: "+groupName, 1);
 
         allowCreative = section.getBoolean("AllowCreative", allowCreative);
 
@@ -126,30 +128,40 @@ public class GroupDefault implements Group{
             conditions = new ConditionsDefault(
                     section.getConfigurationSection("Conditions")
             );
+        }else{
+            SwordLevel.logError("Grupo inválido, não encontrado Conditions.");
         }
 
         if(section.contains("Store")){
             storageMake = new StorageMake(
                     section.getConfigurationSection("Store"), groupName
             );
+        }else{
+            SwordLevel.logError("Grupo inválido, não encontrado Store.");
         }
 
         if(section.contains("Messages")){
             messages = new MessagesDefault(
                     section.getConfigurationSection("Messages")
             );
+        }else{
+            SwordLevel.log("Grupo não tem Messages.", 2);
         }
 
         if(section.contains("Ranks")){
             storageRank = new RankerDefault(
                     section.getConfigurationSection("Ranks"), groupName
             );
+        }else{
+            SwordLevel.log("Grupo não tem Ranks.", 2);
         }
 
         if(section.contains("AntiTheft")){
             antiTheft = new AntiTheftDefault(
                     section.getConfigurationSection("AntiTheft")
             );
+        }else{
+            SwordLevel.log("Grupo não tem AntiTheft.", 2);
         }
 
         if(section.contains("Permissions")){
@@ -161,24 +173,30 @@ public class GroupDefault implements Group{
             for (String subGroupName : subGroupsNames){
                 String permission = subGroups.getString(subGroupName + ".Permission");
                 permissions[i++] = permission;
+                SwordLevel.log("Lendo sub-grupo: "+permission, 2);
 
                 if(subGroups.contains(subGroupName+".Leveling"))
                     levelings.put(
                             permission,
                             new LevelingDefault(subGroups.getConfigurationSection(subGroupName+".Leveling"))
                     );
+                else SwordLevel.logError("Sub-Grupo inválido, não encontrado Leveling.");
                 if(subGroups.contains(subGroupName+".Bonus"))
                     bonuses.put(
                             permission,
                             new BonusList(subGroups.getConfigurationSection(subGroupName+".Bonus"))
                     );
+                else SwordLevel.logError("Sub-Grupo inválido, não encontrado Bonus.");
                 if(subGroups.contains(subGroupName+".Rewards"))
                     rewardLists.put(
                             permission,
                             new RewardsDefault(subGroups.getConfigurationSection(subGroupName+".Rewards"))
                     );
+                else SwordLevel.log("Sub-Grupo não tem Rewards.", 2);
             }
 
+        }else{
+            SwordLevel.logError("Grupo inválido, não encontrado Permissions.");
         }
     }
 }

@@ -14,7 +14,7 @@ Plugin:
     PrefixCommands: '§9[SwordLevel]§2'
     PrefixErrors: '§9[SwordError]§2'
   # Debug
-  # 1, 2, 3
+  # 1, 2, 3, 4
   Debug: 1
 
 # Configurações dos Storages.
