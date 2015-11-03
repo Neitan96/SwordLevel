@@ -32,6 +32,8 @@ public class SwordLevel extends JavaPlugin{
     private static Leveler leveler = null;
     private static Bonuses bonuses = null;
 
+    private static int debugLevel = 1;
+
     @Override
     public void onEnable(){
         instance = this;
@@ -57,6 +59,7 @@ public class SwordLevel extends JavaPlugin{
 
         ConfigurationSection section = config.getConfigurationSection("Plugin");
 
+        debugLevel = section.getInt("Debug", debugLevel);
         SwordUtil.uuid = section.getBoolean("UUID", false);
 
         section = section.getConfigurationSection("Prefix");
@@ -86,6 +89,11 @@ public class SwordLevel extends JavaPlugin{
 
     public static void log(String msg){
         Bukkit.getConsoleSender().sendMessage(prefixConsole+msg);
+    }
+
+    public static void log(String msg, int level){
+        if(debugLevel >= level)
+            logError(msg);
     }
 
     public static void log(CommandSender sender, String msg){
