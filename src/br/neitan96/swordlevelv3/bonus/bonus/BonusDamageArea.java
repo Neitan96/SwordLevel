@@ -57,7 +57,8 @@ public class BonusDamageArea extends Bonus{
         final List<Damageable> entities = SwordUtil.getEntitiesDistance(location, distance);
 
         for (Damageable entity : entities) {
-            entity.damage(damageRandom);
+            if(killer != entity)
+                entity.damage(damageRandom);
         }
 
     }

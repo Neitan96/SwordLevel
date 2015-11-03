@@ -150,10 +150,11 @@ public class ConditionsDefault implements Conditions{
         return
                 (validWhiteWorld(player.getWorld().getName()) && validBlackWorld(player.getWorld().getName()))
                         && (hasMaterial(item.getType())
-                        || hasName(item.getItemMeta().getDisplayName())
+                        || (item.getItemMeta() != null
+                        && (hasName(item.getItemMeta().getDisplayName())
                         || hasNameContains(item.getItemMeta().getDisplayName())
                         || hasLoreLine(item.getItemMeta().getLore())
-                        || hasLoreContains(item.getItemMeta().getLore()));
+                        || hasLoreContains(item.getItemMeta().getLore()))));
     }
 
     @Override

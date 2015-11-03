@@ -3,6 +3,7 @@ package br.neitan96.swordlevelv3.manager;
 import br.neitan96.swordlevelv3.util.ConfigLoader;
 import br.neitan96.swordlevelv3.util.DValue;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -35,7 +36,7 @@ public class GroupManager implements ConfigLoader{
     }
 
     public Group getGroupConditions(Player player, ItemStack item){
-        if(player == null || item == null)
+        if(player == null || item == null || item.getType() == Material.AIR)
             return null;
         for (Group group : groupList){
             if(group.getConditions().conditionValid(player, item)){

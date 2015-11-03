@@ -60,7 +60,7 @@ public class Leveler implements Listener{
         RewardList reward = group.getReward(permission);
         StorageRank storageRank = group.getStorageRank();
 
-        if(storageLevel.getLevel() >= leveling.getLevelMax()) return;
+        if(leveling.getLevelMax() > 0 && storageLevel.getLevel() >= leveling.getLevelMax()) return;
 
         if(antiTheft != null){
             if(block != null && !antiTheft.validAction(player, block)) return;
