@@ -23,7 +23,6 @@ import java.io.IOException;
 public class SwordLevel extends JavaPlugin{
 
     private static SwordLevel instance = null;
-    private static YamlUTF8 config = null;
     private static Connector connector = null;
 
     private static String prefixConsole = null;
@@ -42,6 +41,7 @@ public class SwordLevel extends JavaPlugin{
         if(!configFile.exists())
             saveResource("config.yml", false);
 
+        YamlUTF8 config = null;
         try{
             config = new YamlUTF8(configFile);
         }catch (IOException e){
@@ -63,6 +63,9 @@ public class SwordLevel extends JavaPlugin{
         prefixConsole = section.getString("PrefixConsole");
         prefixCommands = section.getString("PrefixCommands");
         prefixErrors = section.getString("PrefixErrors");
+
+        connector = ConnectorBase.makeConnector(
+                config.getConfigurationSection("Sql"));
 
         GroupManager groupManager = new GroupManager();
         groupManager.loadFromConfig(config.getConfigurationSection("Grupos"));
@@ -102,10 +105,6 @@ public class SwordLevel extends JavaPlugin{
     }
 
     public static Connector getConnector(){
-        if(connector == null){
-            connector = ConnectorBase.makeConnector(
-                    config.getConfigurationSection("Sql"));
-        }
         return connector;
     }
 
