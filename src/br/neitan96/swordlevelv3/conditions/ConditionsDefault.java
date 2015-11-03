@@ -102,7 +102,7 @@ public class ConditionsDefault implements Conditions{
     public boolean hasNameContains(String name) {
         if(nameContains != null && name != null){
             for (String nameList : nameContains) {
-                if(name.equalsIgnoreCase(nameList))
+                if(name.contains(nameList))
                     return true;
             }
         }
