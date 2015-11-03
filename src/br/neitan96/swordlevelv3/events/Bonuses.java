@@ -7,6 +7,7 @@ import br.neitan96.swordlevelv3.manager.GroupManager;
 import br.neitan96.swordlevelv3.storage.level.StorageLevel;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -44,6 +45,9 @@ public class Bonuses implements Listener{
         ItemStack itemInHand = player.getItemInHand();
         Entity entity = event.getEntity();
 
+        if(itemInHand == null || itemInHand.getType() == Material.AIR)
+            return;
+
         Group group = manager.getGroupConditions(player, itemInHand);
 
         if(group == null)
@@ -67,6 +71,9 @@ public class Bonuses implements Listener{
         String uuidPlayer = SwordUtil.getUUIDPlayer(player);
         ItemStack itemInHand = player.getItemInHand();
 
+        if(itemInHand == null || itemInHand.getType() == Material.AIR)
+            return;
+
         Group group = manager.getGroupConditions(player, itemInHand);
 
         if(group == null)
@@ -88,6 +95,9 @@ public class Bonuses implements Listener{
         Player player = event.getPlayer();
         String uuidPlayer = SwordUtil.getUUIDPlayer(player);
         ItemStack itemInHand = player.getItemInHand();
+
+        if(itemInHand == null || itemInHand.getType() == Material.AIR)
+            return;
 
         Group group = manager.getGroupConditions(player, itemInHand);
 

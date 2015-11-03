@@ -11,6 +11,7 @@ import br.neitan96.swordlevelv3.storage.level.StorageLevel;
 import br.neitan96.swordlevelv3.storage.ranks.StorageRank;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -115,6 +116,9 @@ public class Leveler implements Listener{
         ItemStack itemInHand = player.getItemInHand();
         Group group = manager.getGroupConditions(player, itemInHand);
 
+        if(itemInHand == null || itemInHand.getType() == Material.AIR)
+            return;
+
         if(group == null)
             return;
 
@@ -147,6 +151,9 @@ public class Leveler implements Listener{
         String uuidPlayer = SwordUtil.getUUIDPlayer(killer);
         ItemStack itemInHand = killer.getItemInHand();
         Group group = manager.getGroupConditions(killer, itemInHand);
+
+        if(itemInHand == null || itemInHand.getType() == Material.AIR)
+            return;
 
         if(group == null)
             return;

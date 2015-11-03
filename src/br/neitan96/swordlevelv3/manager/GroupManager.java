@@ -36,18 +36,22 @@ public class GroupManager implements ConfigLoader{
 
     public Group getGroupConditions(Player player, ItemStack item){
         for (Group group : groupList){
-            if(group.getConditions().conditionValid(player, item))
-                return
-                        group.getPermission(player) != null ?
-                                (
-                                        !group.allowCreative() &&  player.getGameMode() == GameMode.CREATIVE ?
-                                                null :
-                                                group
-                                ) :
-                                null;
+            if(group.getConditions().conditionValid(player, item)){
+
+                if(group.getPermission(player) == null)
+                    return null;
+
+                if(player.getGameMode() == GameMode.CREATIVE && !group.allowCreative())
+                    return null;
+
+                return group;
+            }
         }
-        if(groupDefault != null && player.hasPermission(groupDefault.getValue1()))
-            return getGroup(groupDefault.getValue2());
+        if(groupDefault != null && player.hasPermission(groupDefault.getValue1())){
+            Group group = getGroup(groupDefault.getValue2());
+            if(player.getGameMode() != GameMode.CREATIVE || group.allowCreative())
+                return group;
+        }
         return null;
     }
 
