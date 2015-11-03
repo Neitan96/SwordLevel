@@ -24,7 +24,7 @@ public abstract class ConnectorBase implements Connector, ConfigLoader{
             "`{ColumnPlayer}` VARCHAR(255), " +
             "`{ColumnGroup}` VARCHAR(128), " +
             "`type` VARCHAR(16), " +
-            "`score` BIGINT DEFAULT 0" +
+            "`score` INTEGER DEFAULT 0" +
             ")";
 
     public static final String sqlCreateLevel =
@@ -32,8 +32,8 @@ public abstract class ConnectorBase implements Connector, ConfigLoader{
             "`{ColumnID}` INTEGER PRIMARY KEY AUTO_INCREMENT, " +
             "`{ColumnPlayer}` VARCHAR(255), " +
             "`{ColumnGroup}` VARCHAR(128), " +
-            "`xp` BIGINT DEFAULT 0, " +
-            "`level` BIGINT DEFAULT 0" +
+            "`xp` INTEGER DEFAULT 0, " +
+            "`level` INTEGER DEFAULT 0" +
             ")";
 
     public static ConnectorBase makeConnector(ConfigurationSection section){
