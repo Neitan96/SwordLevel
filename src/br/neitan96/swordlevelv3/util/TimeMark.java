@@ -54,6 +54,10 @@ public class TimeMark<K>{
 
 
 
+    public int countMarks(){
+        return marks.size();
+    }
+
     public int countMarks(K key){
         return getMarks(key).size();
     }

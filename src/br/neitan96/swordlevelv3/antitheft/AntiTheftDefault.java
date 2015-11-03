@@ -1,7 +1,9 @@
 package br.neitan96.swordlevelv3.antitheft;
 
+import br.neitan96.swordlevelv3.SwordLevel;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import br.neitan96.swordlevelv3.util.TimeMark;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.LivingEntity;
@@ -13,7 +15,7 @@ import org.bukkit.entity.Player;
  * Since: 30/Out/2015 20:41
  * Created by Neitan96 on 30/10/15.
  */
-public class AntiTheftDefault implements AntiTheft{
+public class AntiTheftDefault implements AntiTheft, Runnable{
 
     protected String permissionAllow = null;
 
@@ -33,8 +35,11 @@ public class AntiTheftDefault implements AntiTheft{
     protected TimeMark<String> mobsKill = new TimeMark<>();
     protected TimeMark<String> blockBreak = new TimeMark<>();
 
+    protected int limitCache = 150;
+
     public AntiTheftDefault(ConfigurationSection section) {
         loadFromConfig(section);
+        limitCache = Bukkit.getServer().getMaxPlayers();
     }
 
     @Override
@@ -88,12 +93,13 @@ public class AntiTheftDefault implements AntiTheft{
         long nowAny = System.currentTimeMillis() - (getTimeAnyPlayers() * 1000);
 
         boolean valid =
-                playersKill.countMarks(uuidPlayer, nowSame) <= getCountSamePlayer() &&
-                playersKill.countMarks(uuidPlayer, nowAny, SwordUtil.getUUIDPlayer(entity)) <= getCountAnyPlayers();
+                playersKill.countMarks(uuidPlayer, nowSame) < getCountSamePlayer() &&
+                playersKill.countMarks(uuidPlayer, nowAny, SwordUtil.getUUIDPlayer(entity)) < getCountAnyPlayers();
 
-        if(!valid)
+        if(valid)
             playersKill.add(uuidPlayer, SwordUtil.getUUIDPlayer(entity));
 
+        Bukkit.getScheduler().runTask(SwordLevel.getInstance(), this);
         return valid;
     }
 
@@ -102,18 +108,19 @@ public class AntiTheftDefault implements AntiTheft{
         if(entity instanceof Player)
             return validAction(player, ((Player) entity));
 
-        if(player.hasPermission(permissionAllow))
-            return true;
+        //if(player.hasPermission(permissionAllow))
+        //    return true;
 
         String uuidPlayer = SwordUtil.getUUIDPlayer(player);
 
         long now = System.currentTimeMillis() - (getTimeMob() * 1000);
 
-        boolean valid = mobsKill.countMarks(uuidPlayer, now) <= getCountMob();
+        boolean valid = mobsKill.countMarks(uuidPlayer, now) < getCountMob();
 
-        if(!valid)
+        if(valid)
             mobsKill.add(uuidPlayer);
 
+        Bukkit.getScheduler().runTask(SwordLevel.getInstance(), this);
         return valid;
     }
 
@@ -126,25 +133,29 @@ public class AntiTheftDefault implements AntiTheft{
 
         long now = System.currentTimeMillis() - (getTimeBlock() * 1000);
 
-        boolean valid = blockBreak.countMarks(uuidPlayer, now) <= getCountBlock();
+        boolean valid = blockBreak.countMarks(uuidPlayer, now) < getCountBlock();
 
-        if(!valid)
+        if(valid)
             playersKill.add(uuidPlayer);
 
+        Bukkit.getScheduler().runTask(SwordLevel.getInstance(), this);
         return valid;
     }
 
     @Override
     public synchronized void clearCache(){
-        playersKill.removeMarks(
-                System.currentTimeMillis()-(getTimeAnyPlayers()*1000)
-        );
-        mobsKill.removeMarks(
-                System.currentTimeMillis()-(getTimeMob()*1000)
-        );
-        blockBreak.removeMarks(
-                System.currentTimeMillis()-(getTimeBlock()*1000)
-        );
+        if(playersKill.countMarks() > limitCache)
+            playersKill.removeMarks(
+                    System.currentTimeMillis()-(getTimeAnyPlayers()*1000)
+            );
+        if(mobsKill.countMarks() > limitCache)
+            mobsKill.removeMarks(
+                    System.currentTimeMillis()-(getTimeMob()*1000)
+            );
+        if(blockBreak.countMarks() > limitCache)
+            blockBreak.removeMarks(
+                    System.currentTimeMillis()-(getTimeBlock()*1000)
+            );
     }
 
     @Override
@@ -162,4 +173,8 @@ public class AntiTheftDefault implements AntiTheft{
 
     }
 
+    @Override
+    public void run(){
+        clearCache();
+    }
 }
