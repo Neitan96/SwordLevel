@@ -1,0 +1,30 @@
+Help:
+  Start: '>>> SwordLevel Commands:'
+  End: '-------------------------------------'
+  Format: '{command} - {description}'
+  NoCommand: 'Você não pode executar nenhum comando.'
+Debug:
+  AntiTheft:
+    CacheClear: 'Cache do AntiTheft limpo.'
+    BlockBlock: '{playerUUID}({playerName}) Não passou pelo AntiTheft ao quebrar um bloco.'
+    BlockMob: '{playerUUID}({playerName}) Não passou pelo AntiTheft ao matar um mob.'
+    BlockPlayer: '{playerUUID}({playerName}) Não passou pelo AntiTheft ao matar um player.'
+  Database:
+    Opening: 'Conectando ao banco de dados...'
+    Open: 'Conectado ao banco de dados com sucesso.'
+    Close: 'Conecxão com o banco de dados fechada.'
+    Url: 'Url: {url}'
+  Groups:
+    Reading: 'Lendo configurações do grupo: {group}'
+    ReadingSubGroup: 'Lendo sub-grupo: {subgroup}'
+    NoMessages: 'Grupo não tem Messages.'
+    NoRanks: 'Grupo não tem Ranks.'
+    NoAntiTheft: 'Grupo não tem AntiTheft.'
+    NoRewards: 'Grupo não tem Rewards.'
+Warings:
+  Groups:
+    NoConditions: 'Grupo inválido, Conditions não encontrado.'
+    NoStore: 'Grupo inválido, Store não encontrado.'
+    NoLeveling: 'Grupo inválido, Leveling não encontrado.'
+    NoBonus: 'Grupo inválido, Bonus não encontrado.'
+    NoPermissions: 'Grupo inválido, Permissions não encontrado.'

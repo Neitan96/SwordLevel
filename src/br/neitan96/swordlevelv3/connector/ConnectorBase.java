@@ -94,15 +94,15 @@ public abstract class ConnectorBase implements Connector, ConfigLoader{
 
     @Override
     public void openConnection(){
-        SwordLevel.log("Conectando ao banco de dados.", 2);
-        SwordLevel.log("URL da conecxão: "+url, 3);
+        SwordLevel.log(SwordLevel.getMsgs("Debug.Database.Opening"), 2);
+        SwordLevel.log(SwordLevel.getMsgs("Debug.Database.Url", "url", url), 3);
         try{
             if(user != null && password != null){
                 connection = DriverManager.getConnection(url, user, password);
             }else {
                 connection = DriverManager.getConnection(url);
             }
-            SwordLevel.log("Conectado ao banco de dados com sucesso!", 1);
+            SwordLevel.log(SwordLevel.getMsgs("Debug.Database.Open"), 1);
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -118,7 +118,7 @@ public abstract class ConnectorBase implements Connector, ConfigLoader{
                 e.printStackTrace();
             }
             connection = null;
-            SwordLevel.log("Conecxão com banco de dados fechada", 2);
+            SwordLevel.log(SwordLevel.getMsgs("Debug.Database.Close"), 2);
         }
     }
 

@@ -16,6 +16,7 @@ Plugin:
   # Debug
   # 1, 2, 3, 4
   Debug: 1
+  Messages: 'pt-br.yml'
 
 # Configurações dos Storages.
 Sql:

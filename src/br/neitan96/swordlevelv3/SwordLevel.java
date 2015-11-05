@@ -1,10 +1,12 @@
 package br.neitan96.swordlevelv3;
 
+import br.neitan96.swordlevelv3.commands.CmdHelp;
 import br.neitan96.swordlevelv3.connector.Connector;
 import br.neitan96.swordlevelv3.connector.ConnectorBase;
 import br.neitan96.swordlevelv3.events.Bonuses;
 import br.neitan96.swordlevelv3.events.Leveler;
 import br.neitan96.swordlevelv3.manager.GroupManager;
+import br.neitan96.swordlevelv3.util.Lang;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import br.neitan96.swordlevelv3.util.YamlUTF8;
 import org.bukkit.Bukkit;
@@ -29,8 +31,10 @@ public class SwordLevel extends JavaPlugin{
     private static String prefixCommands = null;
     private static String prefixErrors = null;
 
+    private static GroupManager manager = null;
     private static Leveler leveler = null;
     private static Bonuses bonuses = null;
+    private static Lang lang = null;
 
     private static int debugLevel = 1;
 
@@ -38,19 +42,11 @@ public class SwordLevel extends JavaPlugin{
     public void onEnable(){
         instance = this;
 
-        File configFile = new File(getDataFolder(), "config.yml");
+        saveNotExists("config.yml");
+        saveNotExists("pt-br.yml");
+        saveNotExists("plugin.yml");
 
-        if(!configFile.exists())
-            saveResource("config.yml", false);
-
-        YamlUTF8 config = null;
-        try{
-            config = new YamlUTF8(configFile);
-        }catch (IOException e){
-            e.printStackTrace();
-        }catch (InvalidConfigurationException e){
-            e.printStackTrace();
-        }
+        YamlUTF8 config = getConfig("config.yml");
 
         if(config == null){
             Bukkit.getPluginManager().disablePlugin(this);
@@ -62,22 +58,32 @@ public class SwordLevel extends JavaPlugin{
         debugLevel = section.getInt("Debug", debugLevel);
         SwordUtil.uuid = section.getBoolean("UUID", false);
 
-        section = section.getConfigurationSection("Prefix");
-        prefixConsole = section.getString("PrefixConsole");
-        prefixCommands = section.getString("PrefixCommands");
-        prefixErrors = section.getString("PrefixErrors");
+        prefixConsole = section.getString("Prefix.PrefixConsole");
+        prefixCommands = section.getString("Prefix.PrefixCommands");
+        prefixErrors = section.getString("Prefix.PrefixErrors");
+
+        YamlUTF8 messages = getConfig(section.getString("Messages", "pt-br.yml"));
+
+        if(messages == null){
+            logError("File the messages not existsNoBonus!");
+            lang = new Lang();
+
+        }else{
+            lang = new Lang(messages);
+        }
 
         connector = ConnectorBase.makeConnector(
                 config.getConfigurationSection("Sql"));
 
-        GroupManager groupManager = new GroupManager();
-        groupManager.loadFromConfig(config.getConfigurationSection("Grupos"));
+        manager = new GroupManager();
+        manager.loadFromConfig(config.getConfigurationSection("Grupos"));
         if(config.contains("DefaultGroup"))
-            groupManager.loadDefault(config.getConfigurationSection("DefaultGroup"));
+            manager.loadDefault(config.getConfigurationSection("DefaultGroup"));
 
-        leveler = new Leveler(groupManager);
-        bonuses = new Bonuses(groupManager);
+        leveler = new Leveler(manager);
+        bonuses = new Bonuses(manager);
 
+        getCommand("swordlevel").setExecutor(new CmdHelp());
     }
 
     @Override
@@ -87,33 +93,103 @@ public class SwordLevel extends JavaPlugin{
             connector.closeConnection();
     }
 
+
+    public static YamlUTF8 getConfig(String configName){
+        File file = new File(getInstance().getDataFolder(), configName);
+        try{
+            return new YamlUTF8(file);
+        }catch (IOException e){
+            e.printStackTrace();
+        }catch (InvalidConfigurationException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void saveNotExists(String filename){
+        File file = new File(getInstance().getDataFolder(), filename);
+        if(!file.exists()) getInstance().saveResource(filename, false);
+    }
+
+
     public static void log(String msg){
-        Bukkit.getConsoleSender().sendMessage(prefixConsole+msg);
+        if(msg != null)
+            Bukkit.getConsoleSender().sendMessage(prefixConsole+msg);
+    }
+
+    public static void log(String[] msgs){
+        for (String msg : msgs){
+            log(msg);
+        }
     }
 
     public static void log(String msg, int level){
-        if(debugLevel >= level)
+        if(debugLevel >= level && msg != null)
             logError(msg);
     }
 
+    public static void log(String[] msgs, int level){
+        for (String msg : msgs){
+            log(msg, level);
+        }
+    }
+
     public static void log(CommandSender sender, String msg){
-        sender.sendMessage(prefixCommands+msg);
+        if(msg != null)
+            sender.sendMessage(prefixCommands+msg);
+    }
+
+    public static void log(CommandSender sender, String[] msgs){
+        for (String msg : msgs){
+            log(sender, msg);
+        }
     }
 
     public static void logError(String msg){
-        logError(Bukkit.getConsoleSender(), msg);
+        if(msg != null)
+            logError(Bukkit.getConsoleSender(), msg);
+    }
+
+    public static void logError(String[] msgs){
+        for (String msg : msgs){
+            logError(msg);
+        }
     }
 
     public static void logError(CommandSender sender, String msg){
-        sender.sendMessage(prefixErrors+msg);
+        if(msg != null)
+            sender.sendMessage(prefixErrors+msg);
     }
+
+    public static void logError(CommandSender sender, String[] msgs){
+        for (String msg : msgs){
+            logError(sender, msgs);
+        }
+    }
+
 
     public static SwordLevel getInstance(){
         return instance;
     }
 
+    public static String[] getMsgs(String path){
+        return lang.getMsgs(path);
+    }
+
+    public static String[] getMsgs(String path, String... binds){
+        return lang.getMsgs(path, binds);
+    }
+
+    public static Lang getLang(){
+        return lang;
+    }
+
     public static Connector getConnector(){
         return connector;
+    }
+
+    public static GroupManager getManager(){
+        return manager;
     }
 
     public static Leveler getLeveler(){

@@ -120,7 +120,7 @@ public class GroupDefault implements Group{
         groupName = section.getCurrentPath().substring(
                 section.getCurrentPath().lastIndexOf(".") + 1
         );
-        SwordLevel.log("Lendo configurações do grupo: "+groupName, 1);
+        SwordLevel.log(SwordLevel.getMsgs("Debug.Groups.Reading", "group", groupName), 1);
 
         allowCreative = section.getBoolean("AllowCreative", allowCreative);
 
@@ -129,7 +129,7 @@ public class GroupDefault implements Group{
                     section.getConfigurationSection("Conditions")
             );
         }else{
-            SwordLevel.logError("Grupo inválido, não encontrado Conditions.");
+            SwordLevel.logError(SwordLevel.getMsgs("Warings.Groups.NoConditions"));
         }
 
         if(section.contains("Store")){
@@ -137,7 +137,7 @@ public class GroupDefault implements Group{
                     section.getConfigurationSection("Store"), groupName
             );
         }else{
-            SwordLevel.logError("Grupo inválido, não encontrado Store.");
+            SwordLevel.logError(SwordLevel.getMsgs("Warings.Groups.NoStore"));
         }
 
         if(section.contains("Messages")){
@@ -145,7 +145,7 @@ public class GroupDefault implements Group{
                     section.getConfigurationSection("Messages")
             );
         }else{
-            SwordLevel.log("Grupo não tem Messages.", 2);
+            SwordLevel.log(SwordLevel.getMsgs("Debug.Groups.NoMessages"), 2);
         }
 
         if(section.contains("Ranks")){
@@ -153,7 +153,7 @@ public class GroupDefault implements Group{
                     section.getConfigurationSection("Ranks"), groupName
             );
         }else{
-            SwordLevel.log("Grupo não tem Ranks.", 2);
+            SwordLevel.log(SwordLevel.getMsgs("Debug.Groups.NoRanks"), 2);
         }
 
         if(section.contains("AntiTheft")){
@@ -161,7 +161,7 @@ public class GroupDefault implements Group{
                     section.getConfigurationSection("AntiTheft")
             );
         }else{
-            SwordLevel.log("Grupo não tem AntiTheft.", 2);
+            SwordLevel.log(SwordLevel.getMsgs("Debug.Groups.NoAntiTheft"), 2);
         }
 
         if(section.contains("Permissions")){
@@ -173,30 +173,30 @@ public class GroupDefault implements Group{
             for (String subGroupName : subGroupsNames){
                 String permission = subGroups.getString(subGroupName + ".Permission");
                 permissions[i++] = permission;
-                SwordLevel.log("Lendo sub-grupo: "+permission, 2);
+                SwordLevel.log(SwordLevel.getMsgs("Debug.Groups.ReadingSubGroup", "subgroup", permission), 2);
 
                 if(subGroups.contains(subGroupName+".Leveling"))
                     levelings.put(
                             permission,
                             new LevelingDefault(subGroups.getConfigurationSection(subGroupName+".Leveling"))
                     );
-                else SwordLevel.logError("Sub-Grupo inválido, não encontrado Leveling.");
+                else SwordLevel.logError(SwordLevel.getMsgs("Warings.Groups.NoLeveling"));
                 if(subGroups.contains(subGroupName+".Bonus"))
                     bonuses.put(
                             permission,
                             new BonusList(subGroups.getConfigurationSection(subGroupName+".Bonus"))
                     );
-                else SwordLevel.logError("Sub-Grupo inválido, não encontrado Bonus.");
+                else SwordLevel.logError(SwordLevel.getMsgs("Warings.Groups.NoBonus"));
                 if(subGroups.contains(subGroupName+".Rewards"))
                     rewardLists.put(
                             permission,
                             new RewardsDefault(subGroups.getConfigurationSection(subGroupName+".Rewards"))
                     );
-                else SwordLevel.log("Sub-Grupo não tem Rewards.", 2);
+                else SwordLevel.log(SwordLevel.getMsgs("Debug.Groups.NoRewards"), 2);
             }
 
         }else{
-            SwordLevel.logError("Grupo inválido, não encontrado Permissions.");
+            SwordLevel.logError(SwordLevel.getMsgs("Warings.Groups.NoPermissions"));
         }
     }
 }
