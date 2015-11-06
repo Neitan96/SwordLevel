@@ -44,13 +44,13 @@ commands:
     description: 'Define o level em um grupo para um player'
     permission: 'swordlevel.admin'
     # Coloque sim no 4 argumento para força o level.
-    usage: '/<command> <level> [player] [s|y|sim|yes|true|n|nao|not|false]'
+    usage: '/<command> <level> [s|y|sim|yes|true|n|nao|not|false] [player]'
 
   swordlevel addlevel:
     description: 'Adiciona level em um grupo para um player'
     permission: 'swordlevel.admin'
     # Coloque sim no 4 argumento para força o level.
-    usage: '/<command> <level> [player] [s|y|sim|yes|true|n|nao|not|false]'
+    usage: '/<command> <level> [s|y|sim|yes|true|n|nao|not|false] [player]'
 
   swordlevel setxp:
     description: 'Define o xp em um grupo para um player'
@@ -60,9 +60,9 @@ commands:
   swordlevel addxp:
     description: 'Adiciona xp em um grupo para um player'
     permission: 'swordlevel.admin'
-    usage: '/<command> <xp> [s|y|sim|yes|true|n|nao|not|false] [player]'
+    usage: '/<command> <xp> [s|y|sim|yes|true|n|nao|not|false]'
 
   swordlevel viewplayer:
     description: 'Ver informacoes de um player, Grupo, Item na mao, Level, Xp, Bonus'
     permission: 'swordlevel.admin'
-    usage: '/<command> <player> [grupo]'
+    usage: '/<command> <player>'

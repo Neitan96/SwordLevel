@@ -35,6 +35,7 @@ public class CmdHelp extends CmdSwordLevel{
         subscommands.put("addlevel", new CmdAddLevel());
         subscommands.put("setxp", new CmdSetXp());
         subscommands.put("addxp", new CmdAddXp());
+        subscommands.put("viewplayer", new CmdViewPlayer());
 
         for (Map.Entry<String, Map<String, Object>> commandInfos : commands.entrySet()){
 
