@@ -125,7 +125,7 @@ public class SwordLevel extends JavaPlugin{
 
     public static void log(String msg, int level){
         if(debugLevel >= level && msg != null)
-            logError(msg);
+            log(msg);
     }
 
     public static void log(String[] msgs, int level){
