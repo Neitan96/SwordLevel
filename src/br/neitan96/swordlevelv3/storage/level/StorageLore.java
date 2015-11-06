@@ -84,6 +84,7 @@ public class StorageLore implements StorageLevel{
 
     @Override
     public void setLevel(int levelNow) {
+        levelNow = levelNow < 1 ? 1 : levelNow;
         this.levelNow = levelNow;
         saveInfos();
     }

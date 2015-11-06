@@ -23,7 +23,7 @@ public class CmdView extends CmdSwordLevel{
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
 
-        if(returnNoPermission(commandSender, "bonus"))
+        if(returnNoPermission(commandSender, "view"))
             return true;
 
         if(!(commandSender instanceof Player)){

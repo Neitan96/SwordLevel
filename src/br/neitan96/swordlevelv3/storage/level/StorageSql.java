@@ -78,6 +78,7 @@ public class StorageSql implements StorageLevel{
 
     @Override
     public void setLevel(int level){
+        level = level < 1 ? 1 : level;
 
         if(!hasPlayer()){
             insertPlayer(level, 0);

@@ -24,7 +24,10 @@ Debug:
 Warings:
   NoConsole: 'Ação permitida somente para players.'
   NoPermission: 'Sem permissão.'
+  NotFoundPlayer: 'Player não encontrado'
+  NumInvalid: 'Numero inválido'
   Groups:
+    ItemInvalid: 'Item na mão do player inválido.'
     NoView: 'Item inválido para ver atributos.'
     NoConditions: 'Grupo inválido, Conditions não encontrado.'
     NoStore: 'Grupo inválido, Store não encontrado.'
@@ -48,3 +51,6 @@ Rank:
   Start: 'Players top:'
   Format: '{n} - {player} > {score}'
   End: '---------------------------'
+Groups:
+  LevelUpdate: 'Level alterado com sucesso'
+  XpUpdate: 'Level alterado com sucesso'

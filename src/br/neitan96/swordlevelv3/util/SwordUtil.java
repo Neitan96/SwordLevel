@@ -40,14 +40,20 @@ public class SwordUtil {
     }
 
     public static Player getPlayer(String uuid){
-        Object uuidplayer = SwordUtil.uuid ? UUID.fromString(uuid) : uuid;
-        try {
-            final Method playerMethod = Bukkit.class.getMethod("getPlayer", uuidplayer.getClass());
-            return (Player) playerMethod.invoke(null, uuidplayer);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+
+        if(SwordUtil.uuid){
+            try {
+                UUID uuidplayer = UUID.fromString(uuid);
+                final Method playerMethod = Bukkit.class.getMethod("getPlayer", uuidplayer.getClass());
+                Player invoke = (Player) playerMethod.invoke(null, uuidplayer);
+
+                if(invoke != null)
+                    return invoke;
+            } catch (Exception ignored) {}
         }
+
+        //noinspection deprecation
+        return Bukkit.getPlayer(uuid);
     }
 
     private static final ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
