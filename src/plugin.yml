@@ -36,19 +36,19 @@ commands:
   swordlevel setlevel:
     description: 'Define o level em um grupo para um player'
     permission: 'swordlevel.admin'
-    usage: '/<command> <player> <grupo> <level>'
+    usage: '/<command> <level> [player] [grupo]'
   swordlevel addlevel:
     description: 'Adiciona level em um grupo para um player'
     permission: 'swordlevel.admin'
-    usage: '/<command> <player> <grupo> <level>'
+    usage: '/<command> <level> [player] [grupo]'
   swordlevel setxp:
     description: 'Define o xp em um grupo para um player'
     permission: 'swordlevel.admin'
-    usage: '/<command> <player> <grupo> <xp>'
+    usage: '/<command> <xp> [player] [grupo]'
   swordlevel addxp:
     description: 'Adiciona xp em um grupo para um player'
     permission: 'swordlevel.admin'
-    usage: '/<command> <player> <grupo> <xp>'
+    usage: '/<command> <xp> [player] [grupo]'
   swordlevel viewplayer:
     description: 'Ver informacoes de um player, Grupo, Item na mao, Level, Xp, Bonus'
     permission: 'swordlevel.admin'

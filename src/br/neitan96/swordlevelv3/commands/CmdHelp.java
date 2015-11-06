@@ -28,9 +28,9 @@ public class CmdHelp extends CmdSwordLevel{
 
         subscommands.put("view", new CmdView());
         subscommands.put("bonus", new CmdBonus());
-        subscommands.put("toplevelups", new CmdRankViews(RankType.LEVELS_UPS));
-        subscommands.put("topxpwin", new CmdRankViews(RankType.XP_GAINED));
-        subscommands.put("toplevelmax", new CmdRankViews(RankType.LEVEL_MAX));
+        subscommands.put("toplevelups", new CmdRankViews(RankType.LEVELS_UPS, "toplevelups"));
+        subscommands.put("topxpwin", new CmdRankViews(RankType.XP_GAINED, "topxpwin"));
+        subscommands.put("toplevelmax", new CmdRankViews(RankType.LEVEL_MAX, "toplevelmax"));
 
         for (Map.Entry<String, Map<String, Object>> commandInfos : commands.entrySet()){
 

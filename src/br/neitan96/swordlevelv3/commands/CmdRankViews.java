@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,37 +24,19 @@ import java.util.UUID;
 public class CmdRankViews extends CmdSwordLevel{
 
     protected final RankType type;
+    protected final String command;
 
     protected long lastUpdate = 0;
 
-    public CmdRankViews(RankType type){
+    public CmdRankViews(RankType type, String command){
         this.type = type;
-    }
-
-    public static List<List<Class>> getProvabilitys(List<Class> toAdd, List<List<Class>> provabilitys){
-        Class aClass = toAdd.remove(0);
-
-        ArrayList<List<Class>> newProvabilitys = new ArrayList<>();
-
-        do{
-            if(provabilitys != null){
-                for (List<Class> provability : provabilitys){
-                    provability.add(aClass);
-                    newProvabilitys.add(provability);
-                }
-            }else {
-                newProvabilitys.add(Collections.singletonList(aClass));
-            }
-
-        }while ((aClass = aClass.getSuperclass()) != null);
-
-        return toAdd.size() < 1 ? newProvabilitys : getProvabilitys(toAdd, newProvabilitys);
+        this.command = command;
     }
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
 
-        if(returnNoPermission(commandSender, "toplevelups"))
+        if(returnNoPermission(commandSender, this.command))
             return true;
 
         String sql = "SELECT `{ColumnPlayer}`,`score` FROM `{TableRanks}` WHERE `type` = ? "+
