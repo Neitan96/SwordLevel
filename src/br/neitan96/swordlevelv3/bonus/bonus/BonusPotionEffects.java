@@ -47,22 +47,12 @@ public class BonusPotionEffects extends Bonus{
 
     @Override
     public String[] toString(int level){
-
         List<String> effectsString = new ArrayList<>();
 
         Collections.addAll(effectsString, SwordLevel.getMsgs("Bonus.PottionEffects"));
 
-        for (SwordEffect effect : effects){
-            String[] effectString = SwordLevel.getMsgs("Bonus.Effect",
-                    "name", effect.effectType.getName(),
-                    "level", String.valueOf(effect.amplifier),
-                    "seconds", String.valueOf(effect.secondsEffect),
-                    "provability", String.valueOf(
-                            effect.multiplierProvability ? effect.provability * level : effect.provability));
-
-            Collections.addAll(effectsString, effectString);
-
-        }
+        for (SwordEffect effect : effects)
+            Collections.addAll(effectsString, effect.toString(level));
 
         return effectsString.toArray(new String[effectsString.size()]);
     }

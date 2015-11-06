@@ -1,5 +1,6 @@
 package br.neitan96.swordlevelv3.bonus.bonus;
 
+import br.neitan96.swordlevelv3.SwordLevel;
 import br.neitan96.swordlevelv3.bonus.Bonus;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import org.bukkit.configuration.ConfigurationSection;
@@ -63,5 +64,15 @@ public class SwordEffect extends Bonus{
         amplifier = section.getInt("Amplifier", amplifier);
         provability = section.getInt("Provability", provability);
         multiplierProvability = section.getBoolean("MultiplierProvability", multiplierProvability);
+    }
+
+    @Override
+    public String[] toString(int level){
+        return SwordLevel.getMsgs("Bonus.Effect",
+                "name", effectType.getName(),
+                "level", String.valueOf(amplifier),
+                "seconds", String.valueOf(secondsEffect),
+                "provability", String.valueOf(
+                        multiplierProvability ? provability * level : provability));
     }
 }
