@@ -86,7 +86,8 @@ public class Leveler implements Listener{
 
         xpNow += xpWin;
 
-        while (xpNow >= (xpRequired = leveling.calculateXPRequired(levelNow))){
+        while (xpNow >= (xpRequired = leveling.calculateXPRequired(levelNow))
+                && levelNow <= leveling.getLevelMax()){
             xpNow -= xpRequired;
             levelNow++;
             levelWin++;
