@@ -118,9 +118,10 @@ public class SwordLevel extends JavaPlugin{
     }
 
     public static void log(String[] msgs){
-        for (String msg : msgs){
-            log(msg);
-        }
+        if(msgs != null)
+            for (String msg : msgs){
+                log(msg);
+            }
     }
 
     public static void log(String msg, int level){
@@ -129,9 +130,10 @@ public class SwordLevel extends JavaPlugin{
     }
 
     public static void log(String[] msgs, int level){
-        for (String msg : msgs){
-            log(msg, level);
-        }
+        if(msgs != null)
+            for (String msg : msgs){
+                log(msg, level);
+            }
     }
 
     public static void log(CommandSender sender, String msg){
@@ -140,9 +142,10 @@ public class SwordLevel extends JavaPlugin{
     }
 
     public static void log(CommandSender sender, String[] msgs){
-        for (String msg : msgs){
-            log(sender, msg);
-        }
+        if(msgs != null)
+            for (String msg : msgs){
+                log(sender, msg);
+            }
     }
 
     public static void logError(String msg){
@@ -151,9 +154,10 @@ public class SwordLevel extends JavaPlugin{
     }
 
     public static void logError(String[] msgs){
-        for (String msg : msgs){
-            logError(msg);
-        }
+        if(msgs != null)
+            for (String msg : msgs){
+                logError(msg);
+            }
     }
 
     public static void logError(CommandSender sender, String msg){
@@ -162,9 +166,10 @@ public class SwordLevel extends JavaPlugin{
     }
 
     public static void logError(CommandSender sender, String[] msgs){
-        for (String msg : msgs){
-            logError(sender, msgs);
-        }
+        if(msgs != null)
+            for (String msg : msgs){
+                logError(sender, msgs);
+            }
     }
 
 

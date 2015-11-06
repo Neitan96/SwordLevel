@@ -44,7 +44,7 @@ public class Lang{
     }
 
     public String[] getMsgs(String path){
-        return messages.get(path);
+        return messages.get(path).clone();
     }
 
     public String[] getMsgs(String path, String... binds){

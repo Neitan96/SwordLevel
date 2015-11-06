@@ -1,6 +1,7 @@
 package br.neitan96.swordlevelv3.commands;
 
 import br.neitan96.swordlevelv3.SwordLevel;
+import br.neitan96.swordlevelv3.storage.ranks.RankType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,6 +28,9 @@ public class CmdHelp extends CmdSwordLevel{
 
         subscommands.put("view", new CmdView());
         subscommands.put("bonus", new CmdBonus());
+        subscommands.put("toplevelups", new CmdRankViews(RankType.LEVELS_UPS));
+        subscommands.put("topxpwin", new CmdRankViews(RankType.XP_GAINED));
+        subscommands.put("toplevelmax", new CmdRankViews(RankType.LEVEL_MAX));
 
         for (Map.Entry<String, Map<String, Object>> commandInfos : commands.entrySet()){
 
@@ -47,7 +51,7 @@ public class CmdHelp extends CmdSwordLevel{
 
             String[] binds2 = binds.toArray(new String[binds.size()]);
 
-            commandsHelpers.put(commandInfos.getKey(), SwordLevel.getLang().getMsgs("Help.Start", binds2));
+            commandsHelpers.put(commandInfos.getKey(), SwordLevel.getLang().getMsgs("Help.Format", binds2));
 
         }
 

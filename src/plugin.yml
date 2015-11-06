@@ -21,15 +21,6 @@ commands:
     description: 'Ver os bonus e xp do equivalente ao item na mao.'
     permission: 'swordlevel.bonus'
     usage: '/<command>'
-  # Comando mostra somente de grupos armazenados por player
-  swordlevel viewall:
-    description: 'Ver o level e xp de todos seus grupos.'
-    permission: 'swordlevel.viewall'
-    usage: '/<command>'
-  swordlevel bonusall:
-    description: 'Ver os bonus e xp de todos seus grupos.'
-    permission: 'swordlevel.bonusall'
-    usage: '/<command>'
   swordlevel toplevelups:
     description: 'Ver os 10 players que mais upou levels.'
     permission: 'swordlevel.toplevelups'

@@ -43,3 +43,8 @@ Bonus:
   PottionEffects: 'Efeitos:'
   ThunderNo:  'Trovão: Ativo no level {levelAllow}.'
   Thunder:  'Trovão: {provability}% de chace.'
+Rank:
+  NoScore: 'Nenhum score registrado.'
+  Start: 'Players top:'
+  Format: '{n} - {player} > {score}'
+  End: '---------------------------'
