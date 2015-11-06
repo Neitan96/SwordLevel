@@ -1,5 +1,6 @@
 package br.neitan96.swordlevelv3.bonus.bonus;
 
+import br.neitan96.swordlevelv3.SwordLevel;
 import br.neitan96.swordlevelv3.bonus.Bonus;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import org.bukkit.configuration.ConfigurationSection;
@@ -43,4 +44,14 @@ public class BonusThunder extends Bonus{
         multiplierProvability = section.getBoolean("MultiplierProvability", multiplierProvability);
         levelAllow = section.getInt("LevelAllow", levelAllow);
     }
+
+    @Override
+    public String[] toString(int level){
+        int provability =  multiplierProvability ? this.provability * level : this.provability;
+        if(level < levelAllow)
+            return SwordLevel.getMsgs("Bonus.ThunderNo", "levelAllow", String.valueOf(levelAllow));
+        else
+            return SwordLevel.getMsgs("Bonus.Thunder", "provability", String.valueOf(provability));
+    }
+
 }

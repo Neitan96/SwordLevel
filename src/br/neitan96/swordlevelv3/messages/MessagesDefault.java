@@ -76,6 +76,11 @@ public class MessagesDefault implements SwordMessages{
     }
 
     @Override
+    public String getNoView(){
+        return messages.get("NoView");
+    }
+
+    @Override
     public void loadFromConfig(ConfigurationSection section) {
 
         Map<String, String> messages = new HashMap<>();

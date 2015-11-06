@@ -30,6 +30,18 @@ commands:
     description: 'Ver os bonus e xp de todos seus grupos.'
     permission: 'swordlevel.bonusall'
     usage: '/<command>'
+  swordlevel toplevelups:
+    description: 'Ver os 10 players que mais upou levels.'
+    permission: 'swordlevel.toplevelups'
+    usage: '/<command> [grupo]'
+  swordlevel topxpwin:
+    description: 'Ver os 10 players que mais ganhou xp.'
+    permission: 'swordlevel.topxpwin'
+    usage: '/<command> [grupo]'
+  swordlevel toplevelmax:
+    description: 'Ver os 10 players que chegou nos levels mais altos.'
+    permission: 'swordlevel.toplevelmax'
+    usage: '/<command> [grupo]'
   swordlevel setlevel:
     description: 'Define o level em um grupo para um player'
     permission: 'swordlevel.admin'

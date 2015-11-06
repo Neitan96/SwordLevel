@@ -1,5 +1,6 @@
 package br.neitan96.swordlevelv3.bonus.bonus;
 
+import br.neitan96.swordlevelv3.SwordLevel;
 import br.neitan96.swordlevelv3.bonus.Bonus;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import org.bukkit.Location;
@@ -72,6 +73,32 @@ public class BonusDamageArea extends Bonus{
         damageMax = section.getDouble("DamageMax", damageMax);
         multiplierDamage = section.getBoolean("MultiplierDamage", multiplierDamage);
         levelAllow = section.getInt("LevelAllow", levelAllow);
+    }
+
+    @Override
+    public String[] toString(int level){
+
+        int provability = this.provability;
+
+        if(multiplierProvability)
+            provability *= level;
+
+        double damageMin = this.damageMin;
+        double damageMax = this.damageMax;
+
+        if(multiplierDamage){
+            damageMin *= level;
+            damageMax *= level;
+        }
+
+        if(level < levelAllow)
+            return SwordLevel.getMsgs("Bonus.DamageAreaNo", "levelAllow", String.valueOf(levelAllow));
+        else
+            return SwordLevel.getMsgs("Bonus.DamageArea",
+                    "damageMin", String.valueOf(damageMin),
+                    "damageMax", String.valueOf(damageMax),
+                    "distance", String.valueOf(distance),
+                    "provability", String.valueOf(provability));
     }
 
 }

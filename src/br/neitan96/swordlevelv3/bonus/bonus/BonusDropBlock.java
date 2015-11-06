@@ -1,5 +1,6 @@
 package br.neitan96.swordlevelv3.bonus.bonus;
 
+import br.neitan96.swordlevelv3.SwordLevel;
 import br.neitan96.swordlevelv3.bonus.Bonus;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import org.bukkit.GameMode;
@@ -61,5 +62,17 @@ public class BonusDropBlock extends Bonus{
         multiplier = section.getDouble("Multiplier", multiplier);
         multiplierMultuplier = section.getBoolean("MultiplierMulplier", multiplierMultuplier);
         levelAllow = section.getInt("LevelAllow", levelAllow);
+    }
+
+    @Override
+    public String[] toString(int level){
+        double multiplier = multiplierMultuplier ? this.multiplier*level : this.multiplier;
+        int provability = multiplierProvability ? this.provability * level : this.provability;
+        if(level < levelAllow)
+            return SwordLevel.getMsgs("Bonus.DropBlockNo", "levelAllow", String.valueOf(levelAllow));
+        else
+            return SwordLevel.getMsgs("Bonus.DropBlock",
+                    "multiplier", String.valueOf(multiplier),
+                    "provability", String.valueOf(provability));
     }
 }

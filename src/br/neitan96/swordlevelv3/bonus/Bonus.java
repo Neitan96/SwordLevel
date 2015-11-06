@@ -23,4 +23,6 @@ public abstract class Bonus implements ConfigLoader{
 
     }
 
+    public abstract String[] toString(int level);
+
 }

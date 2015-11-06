@@ -16,4 +16,6 @@ public interface SwordMessages extends ConfigLoader{
 
     String getViewLevel(int levelNow, int xpNow, int xpMissing);
 
+    String getNoView();
+
 }

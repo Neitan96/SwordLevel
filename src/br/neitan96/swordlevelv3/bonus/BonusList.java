@@ -8,10 +8,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by neitan96 on 28/10/15.
@@ -84,4 +81,14 @@ public class BonusList extends Bonus {
         }
         bonus = bonusList.toArray(new Bonus[bonusList.size()]);
     }
+
+    @Override
+    public String[] toString(int level){
+        List<String> bonuses = new ArrayList<>();
+        for (Bonus bonus : this.bonus){
+            Collections.addAll(bonuses,  bonus.toString(level));
+        }
+        return bonuses.toArray(new String[bonuses.size()]);
+    }
+
 }

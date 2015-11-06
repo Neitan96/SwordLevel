@@ -1,5 +1,6 @@
 package br.neitan96.swordlevelv3.bonus.bonus;
 
+import br.neitan96.swordlevelv3.SwordLevel;
 import br.neitan96.swordlevelv3.bonus.Bonus;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import org.bukkit.configuration.ConfigurationSection;
@@ -41,5 +42,19 @@ public class BonusDamage extends Bonus{
         damageMin = section.getDouble("DamageMin", damageMin);
         damageMax = section.getDouble("DamageMax", damageMax);
         multiplierDamage = section.getBoolean("MultiplierDamage", multiplierDamage);
+    }
+
+    @Override
+    public String[] toString(int level){
+
+        double damageMin = this.damageMin;
+        double damageMax = this.damageMax;
+
+        if(multiplierDamage){
+            damageMin *= level;
+            damageMax *= level;
+        }
+
+        return SwordLevel.getMsgs("Bonus.Damage", "damageMin", String.valueOf(damageMin), "damageMax", String.valueOf(damageMax));
     }
 }

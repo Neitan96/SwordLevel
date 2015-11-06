@@ -22,9 +22,23 @@ Debug:
     NoAntiTheft: 'Grupo não tem AntiTheft.'
     NoRewards: 'Grupo não tem Rewards.'
 Warings:
+  NoConsole: 'Ação permitida somente para players.'
   Groups:
+    NoView: 'Item inválido para ver atributos.'
     NoConditions: 'Grupo inválido, Conditions não encontrado.'
     NoStore: 'Grupo inválido, Store não encontrado.'
     NoLeveling: 'Grupo inválido, Leveling não encontrado.'
     NoBonus: 'Grupo inválido, Bonus não encontrado.'
     NoPermissions: 'Grupo inválido, Permissions não encontrado.'
+Bonus:
+  Damage: 'Dano: {damageMin}-{damageMax}.'
+  DamageAreaNo: 'Dano em area ativado no level {levelAllow}.'
+  DamageArea: 'Dano em area: {damageMin}-{damageMax}, {distance} blocos de distancia, {provability}% de chance.'
+  DropBlockNo: 'Drops de bloco ativado no level: {levelAllow}.'
+  DropBlock: 'Drops de bloco: {provability}% de chance, drops multiplicado {multiplier}x.'
+  DropMobNo: 'Drops de mob ativado no level: {levelAllow}.'
+  DropMob: 'Drops de mob: {provability}% de chance, drops multiplicado {multiplier}x.'
+  Effect: '  {name}-{level} {seconds}s {provability}% de chance.'
+  PottionEffects: 'Efeitos:'
+  ThunderNo:  'Trovão: Ativo no level {levelAllow}.'
+  Thunder:  'Trovão: {provability}% de chace.'
