@@ -23,6 +23,9 @@ public class CmdView extends CmdSwordLevel{
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
 
+        if(returnNoPermission(commandSender, "bonus"))
+            return true;
+
         if(!(commandSender instanceof Player)){
             SwordLevel.log(commandSender, SwordLevel.getMsgs("Warings.NoConsole"));
             return true;

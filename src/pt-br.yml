@@ -23,6 +23,7 @@ Debug:
     NoRewards: 'Grupo não tem Rewards.'
 Warings:
   NoConsole: 'Ação permitida somente para players.'
+  NoPermission: 'Sem permissão.'
   Groups:
     NoView: 'Item inválido para ver atributos.'
     NoConditions: 'Grupo inválido, Conditions não encontrado.'

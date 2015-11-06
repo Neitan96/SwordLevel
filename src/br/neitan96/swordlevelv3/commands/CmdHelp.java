@@ -2,6 +2,7 @@ package br.neitan96.swordlevelv3.commands;
 
 import br.neitan96.swordlevelv3.SwordLevel;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -20,7 +21,13 @@ public class CmdHelp extends CmdSwordLevel{
     protected Map<String, String[]> commandsHelpers = new HashMap<>();
     protected Map<String, String> commandsPermissions = new HashMap<>();
 
+    protected Map<String, CommandExecutor> subscommands = new HashMap<>();
+
     public CmdHelp(){
+
+        subscommands.put("view", new CmdView());
+        subscommands.put("bonus", new CmdBonus());
+
         for (Map.Entry<String, Map<String, Object>> commandInfos : commands.entrySet()){
 
             Object permission = commandInfos.getValue().get("permission");
@@ -48,6 +55,10 @@ public class CmdHelp extends CmdSwordLevel{
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
+
+        if(strings.length > 0)
+            return subscommands.containsKey(strings[0])
+                    && subscommands.get(strings[0]).onCommand(commandSender, command, s, strings);
 
         List<String> commands = new ArrayList<>();
 
