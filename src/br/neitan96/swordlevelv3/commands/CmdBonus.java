@@ -42,6 +42,7 @@ public class CmdBonus extends CmdSwordLevel{
         String permission = group.getPermission(player);
         StorageLevel storageLevel = group.getStorageLevel(SwordUtil.getUUIDPlayer(player), itemInHand);
 
+        SwordLevel.log(commandSender, SwordLevel.getMsgs("Bonus.Start"));
         SwordLevel.log(commandSender,
             group.getBonus(permission).toString(storageLevel.getLevel())
         );

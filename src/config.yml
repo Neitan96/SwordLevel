@@ -10,9 +10,9 @@ Plugin:
   UUID: true
   # Prefix das mensagens.
   Prefix:
-    PrefixConsole: '§9[SwordLevel]§2'
-    PrefixCommands: '§9[SwordLevel]§2'
-    PrefixErrors: '§9[SwordError]§2'
+    PrefixConsole: '§9[SwordLevel]§2 '
+    PrefixCommands: '§9[SwordLevel]§2 '
+    PrefixErrors: '§9[SwordError]§2 '
   # Debug
   # 1, 2, 3, 4
   Debug: 1

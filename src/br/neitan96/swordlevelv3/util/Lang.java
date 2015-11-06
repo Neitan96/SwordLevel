@@ -44,7 +44,7 @@ public class Lang{
     }
 
     public String[] getMsgs(String path){
-        return messages.get(path).clone();
+        return messages.containsKey(path) ? messages.get(path).clone() : null;
     }
 
     public String[] getMsgs(String path, String... binds){

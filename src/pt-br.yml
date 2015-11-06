@@ -35,6 +35,7 @@ Warings:
     NoBonus: 'Grupo inválido, Bonus não encontrado.'
     NoPermissions: 'Grupo inválido, Permissions não encontrado.'
 Bonus:
+  Start: 'Bonus:'
   Damage: 'Dano: {damageMin}-{damageMax}.'
   DamageAreaNo: 'Dano em area ativado no level {levelAllow}.'
   DamageArea: 'Dano em area: {damageMin}-{damageMax}, {distance} blocos de distancia, {provability}% de chance.'
