@@ -65,7 +65,7 @@ public class SwordLevel extends JavaPlugin{
         YamlUTF8 messages = getConfig(section.getString("Messages", "pt-br.yml"));
 
         if(messages == null){
-            logError("File the messages not existsNoBonus!");
+            logError("File the messages not exists!");
             lang = new Lang();
 
         }else{
