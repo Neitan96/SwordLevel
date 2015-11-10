@@ -2,6 +2,7 @@ package br.neitan96.swordlevelv3.bonus.bonus;
 
 import br.neitan96.swordlevelv3.SwordLevel;
 import br.neitan96.swordlevelv3.bonus.Bonus;
+import br.neitan96.swordlevelv3.util.DamageAmor;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -15,6 +16,7 @@ public class BonusDamage extends Bonus{
     protected double damageMin = 0;
     protected double damageMax = 0;
     protected boolean multiplierDamage = false;
+    protected boolean ignoreAmor = false;
 
     public BonusDamage(ConfigurationSection section){
         loadFromConfig(section);
@@ -31,8 +33,14 @@ public class BonusDamage extends Bonus{
             damageMax *= level;
         }
 
-        final double damageEvent = event.getDamage();
-        final double damageRandom = SwordUtil.randomDouble(damageMin, damageMax);
+        double damageEvent = event.getDamage();
+        double damageRandom = SwordUtil.randomDouble(damageMin, damageMax);
+
+        if(!ignoreAmor && event.getEntity() instanceof Player){
+            Player entity = (Player) event.getEntity();
+            double reduceDamage = DamageAmor.getReduceDamage(entity.getInventory())/100;
+            damageRandom *=  reduceDamage;
+        }
 
         event.setDamage(damageEvent+damageRandom);
     }
@@ -42,6 +50,7 @@ public class BonusDamage extends Bonus{
         damageMin = section.getDouble("DamageMin", damageMin);
         damageMax = section.getDouble("DamageMax", damageMax);
         multiplierDamage = section.getBoolean("MultiplierDamage", multiplierDamage);
+        ignoreAmor = section.getBoolean("IgnoreAmor", ignoreAmor);
     }
 
     @Override

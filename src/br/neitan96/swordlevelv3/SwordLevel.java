@@ -42,11 +42,11 @@ public class SwordLevel extends JavaPlugin{
     public void onEnable(){
         instance = this;
 
-        saveNotExists("config.yml");
+        saveNotExists("config pt-bt.yml");
         saveNotExists("pt-br.yml");
         saveNotExists("plugin.yml");
 
-        YamlUTF8 config = getConfig("config.yml");
+        YamlUTF8 config = getConfig("config pt-bt.yml");
 
         if(config == null){
             Bukkit.getPluginManager().disablePlugin(this);
