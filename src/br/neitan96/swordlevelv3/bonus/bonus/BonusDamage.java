@@ -7,6 +7,8 @@ import br.neitan96.swordlevelv3.util.SwordUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 /**
  * Created by neitan96 on 28/10/15.
@@ -38,8 +40,17 @@ public class BonusDamage extends Bonus{
 
         if(!ignoreAmor && event.getEntity() instanceof Player){
             Player entity = (Player) event.getEntity();
-            double reduceDamage = DamageAmor.getReduceDamage(entity.getInventory())/100;
-            damageRandom *=  reduceDamage;
+            PlayerInventory inventory = entity.getInventory();
+            damageRandom =  DamageAmor.reduceDamage(inventory, damageRandom);
+
+            ItemStack[] playerSet = {
+                    inventory.getHelmet(), inventory.getChestplate(),
+                    inventory.getLeggings(), inventory.getBoots()};
+
+            for (ItemStack itemStack : playerSet){
+                itemStack.setDurability((short) (itemStack.getDurability()+damageRandom));
+            }
+
         }
 
         event.setDamage(damageEvent+damageRandom);

@@ -41,7 +41,7 @@ public abstract class CmdChanger extends CmdSwordLevel{
             return true;
         }
 
-        Player player = strings.length > 3 ? SwordUtil.getPlayer(strings[3]) : (Player) commandSender;
+        Player player = strings.length > 2 ? SwordUtil.getPlayer(strings[2]) : (Player) commandSender;
 
         if(player == null){
             SwordLevel.log(commandSender, SwordLevel.getMsgs("Warings.NotFoundPlayer"));
@@ -57,7 +57,8 @@ public abstract class CmdChanger extends CmdSwordLevel{
             return true;
         }
 
-        boolean force = strings.length > 2 && (strings[2].equalsIgnoreCase("s") ||
+        boolean force = strings.length > 3 && (
+                strings[3].equalsIgnoreCase("s") ||
                 strings[3].equalsIgnoreCase("y") ||
                 strings[3].equalsIgnoreCase("sim") ||
                 strings[3].equalsIgnoreCase("yes") ||

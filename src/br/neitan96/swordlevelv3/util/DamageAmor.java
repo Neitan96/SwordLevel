@@ -106,4 +106,9 @@ public class DamageAmor{
         return defPoints*4;
     }
 
+    public static double reduceDamage(PlayerInventory inventory, double damage){
+        double reduceDamage = 100-getReduceDamage(inventory);
+        return damage*(reduceDamage/100);
+    }
+
 }
