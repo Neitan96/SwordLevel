@@ -102,7 +102,7 @@ public class AntiTheftDefault implements AntiTheft, Runnable{
             SwordLevel.log(SwordLevel.getMsgs("Debug.AntiTheft.BlockPlayer",
                     "playerName", player.getName(), "playerUUID", uuidPlayer), 4);
 
-        Bukkit.getScheduler().runTask(SwordLevel.getInstance(), this);
+        Bukkit.getScheduler().runTask(SwordLevel.getPlugin(), this);
         return valid;
     }
 
@@ -126,7 +126,7 @@ public class AntiTheftDefault implements AntiTheft, Runnable{
             SwordLevel.log(SwordLevel.getMsgs("Debug.AntiTheft.BlockMob",
                     "playerName", player.getName(), "playerUUID", uuidPlayer), 4);
 
-        Bukkit.getScheduler().runTask(SwordLevel.getInstance(), this);
+        Bukkit.getScheduler().runTask(SwordLevel.getPlugin(), this);
         return valid;
     }
 
@@ -147,7 +147,7 @@ public class AntiTheftDefault implements AntiTheft, Runnable{
             SwordLevel.log(SwordLevel.getMsgs("Debug.AntiTheft.BlockBlock",
                     "playerName", player.getName(), "playerUUID", uuidPlayer), 4);
 
-        Bukkit.getScheduler().runTask(SwordLevel.getInstance(), this);
+        Bukkit.getScheduler().runTask(SwordLevel.getPlugin(), this);
         return valid;
     }
 

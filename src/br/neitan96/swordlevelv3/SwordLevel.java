@@ -22,9 +22,9 @@ import java.io.IOException;
 /**
  * Created by neitan96 on 26/10/15.
  */
-public class SwordLevel extends JavaPlugin{
+public class SwordLevel{
 
-    private static SwordLevel instance = null;
+    private static JavaPlugin plugin = null;
     private static Connector connector = null;
 
     private static String prefixConsole = null;
@@ -38,18 +38,25 @@ public class SwordLevel extends JavaPlugin{
 
     private static int debugLevel = 1;
 
-    @Override
+    public SwordLevel(){
+        SwordLevel.plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("SwordLevel");
+    }
+
     public void onEnable(){
-        instance = this;
 
         saveNotExists("config pt-bt.yml");
+        saveNotExists("config.yml");
+
         saveNotExists("pt-br.yml");
+        saveNotExists("en-us.yml");
+
+        saveNotExists("plugin pt-br.yml");
         saveNotExists("plugin.yml");
 
-        YamlUTF8 config = getConfig("config pt-bt.yml");
+        YamlUTF8 config = getConfig("config.yml");
 
         if(config == null){
-            Bukkit.getPluginManager().disablePlugin(this);
+            Bukkit.getPluginManager().disablePlugin(plugin);
             return;
         }
 
@@ -83,19 +90,18 @@ public class SwordLevel extends JavaPlugin{
         leveler = new Leveler(manager);
         bonuses = new Bonuses(manager);
 
-        getCommand("swordlevel").setExecutor(new CmdHelp());
+        plugin.getCommand("swordlevel").setExecutor(new CmdHelp());
     }
 
-    @Override
     public void onDisable(){
-        HandlerList.unregisterAll(this);
+        HandlerList.unregisterAll(plugin);
         if(connector != null)
             connector.closeConnection();
     }
 
 
     public static YamlUTF8 getConfig(String configName){
-        File file = new File(getInstance().getDataFolder(), configName);
+        File file = new File(plugin.getDataFolder(), configName);
         try{
             return new YamlUTF8(file);
         }catch (IOException e){
@@ -104,11 +110,6 @@ public class SwordLevel extends JavaPlugin{
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static void saveNotExists(String filename){
-        File file = new File(getInstance().getDataFolder(), filename);
-        if(!file.exists()) getInstance().saveResource(filename, false);
     }
 
 
@@ -173,8 +174,9 @@ public class SwordLevel extends JavaPlugin{
     }
 
 
-    public static SwordLevel getInstance(){
-        return instance;
+    public static void saveNotExists(String filename){
+        File file = new File(getPlugin().getDataFolder(), filename);
+        if(!file.exists()) getPlugin().saveResource(filename, false);
     }
 
     public static String[] getMsgs(String path){
@@ -203,5 +205,9 @@ public class SwordLevel extends JavaPlugin{
 
     public static Bonuses getBonuses(){
         return bonuses;
+    }
+
+    public static JavaPlugin getPlugin(){
+        return plugin;
     }
 }

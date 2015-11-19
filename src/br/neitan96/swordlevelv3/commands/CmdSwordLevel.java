@@ -18,7 +18,7 @@ public abstract class CmdSwordLevel implements CommandExecutor{
 
     protected CmdSwordLevel(){
         if(commands == null)
-            commands = SwordLevel.getInstance().getDescription().getCommands();
+            commands = SwordLevel.getPlugin().getDescription().getCommands();
     }
 
     protected Map<String, Object> getInfosCommands(String command){

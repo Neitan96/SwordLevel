@@ -34,7 +34,7 @@ public class Leveler implements Listener{
     public Leveler(GroupManager manager){
         this.manager = manager;
 
-        Bukkit.getPluginManager().registerEvents(this, SwordLevel.getInstance());
+        Bukkit.getPluginManager().registerEvents(this, SwordLevel.getPlugin());
     }
 
     public GroupManager getManager(){

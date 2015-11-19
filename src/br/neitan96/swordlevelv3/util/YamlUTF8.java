@@ -60,20 +60,16 @@ public class YamlUTF8 extends YamlConfiguration{
 
         InputStreamReader reader = new InputStreamReader(stream, CHARSET);
         StringBuilder builder = new StringBuilder();
-        BufferedReader input = new BufferedReader(reader);
 
-        //noinspection TryFinallyCanBeTryWithResources
-        try {
+        try (BufferedReader input = new BufferedReader(reader)){
 
             String line;
 
-            while ((line = input.readLine()) != null) {
+            while ((line = input.readLine()) != null){
                 builder.append(line);
                 builder.append('\n');
             }
 
-        } finally {
-            input.close();
         }
 
         loadFromString(builder.toString());
