@@ -18,7 +18,8 @@ public class BonusDamage extends Bonus{
     protected double damageMin = 0;
     protected double damageMax = 0;
     protected boolean multiplierDamage = false;
-    protected boolean ignoreAmor = false;
+    protected boolean ignoreAmor = true;
+    protected boolean preventDurability = false;
 
     public BonusDamage(ConfigurationSection section){
         loadFromConfig(section);
@@ -38,18 +39,29 @@ public class BonusDamage extends Bonus{
         double damageEvent = event.getDamage();
         double damageRandom = SwordUtil.randomDouble(damageMin, damageMax);
 
-        if(!ignoreAmor && event.getEntity() instanceof Player){
+        if(damageRandom < 1)
+            return;
+
+        if(event.getEntity() instanceof Player){
+
             Player entity = (Player) event.getEntity();
             PlayerInventory inventory = entity.getInventory();
-            damageRandom =  DamageAmor.reduceDamage(inventory, damageRandom);
+
+            if(!ignoreAmor)
+                damageRandom =  DamageAmor.reduceDamage(inventory, damageRandom);
 
             ItemStack[] playerSet = {
                     inventory.getHelmet(), inventory.getChestplate(),
                     inventory.getLeggings(), inventory.getBoots()};
 
-            for (ItemStack itemStack : playerSet){
-                itemStack.setDurability((short) (itemStack.getDurability()+damageRandom));
-            }
+            if(preventDurability)
+                for (ItemStack itemStack : playerSet){
+                    if(itemStack != null){
+                        short durability = itemStack.getDurability();
+                        double damagePlus = damageRandom-damageEvent;
+                        itemStack.setDurability((short) (durability-damagePlus));
+                    }
+                }
 
         }
 
@@ -62,6 +74,7 @@ public class BonusDamage extends Bonus{
         damageMax = section.getDouble("DamageMax", damageMax);
         multiplierDamage = section.getBoolean("MultiplierDamage", multiplierDamage);
         ignoreAmor = section.getBoolean("IgnoreAmor", ignoreAmor);
+        preventDurability = section.getBoolean("PreventDurability", preventDurability);
     }
 
     @Override

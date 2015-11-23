@@ -245,6 +245,9 @@ Grupos:
             # Se deseja ignorar a armadura do player que recebeu o dano.
             # Opcional, Default: true.
             IgnoreAmor: false
+            # Se deseja que o SwordLevel não interfira na durabilidade da armadura de quem recebe o dano.
+            # Opcional, Default: false.
+            PreventDurability: true
             # Dano minimo.
             # Opcional, Default: 0.
             DamageMin: 2
