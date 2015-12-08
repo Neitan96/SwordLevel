@@ -66,3 +66,8 @@ commands:
     description: 'Ver informacoes de um player, Grupo, Item na mao, Level, Xp, Bonus'
     permission: 'swordlevel.admin'
     usage: '/<command> <player>'
+
+  swordlevel reload:
+    description: 'Recarrega o plugin'
+    permission: 'swordlevel.admin'
+    usage: '/<command>'

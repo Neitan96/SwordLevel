@@ -74,7 +74,8 @@ public class LevelingDefault implements Leveling{
         Object eval = SwordUtil.eval(required);
         if(eval == null)
             return -1;
-        return (int) Math.ceil((Double) eval);
+        int requiredXP =  (int) Math.ceil((Double) eval);
+        return requiredXP < 1 ? 1 : requiredXP;
     }
 
     @Override

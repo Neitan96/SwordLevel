@@ -8,7 +8,6 @@ import br.neitan96.swordlevelv3.storage.level.StorageLevel;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -43,7 +42,6 @@ public class Bonuses implements Listener{
         Player player = (Player) event.getDamager();
         String uuidPlayer = SwordUtil.getUUIDPlayer(player);
         ItemStack itemInHand = player.getItemInHand();
-        Entity entity = event.getEntity();
 
         if(itemInHand == null || itemInHand.getType() == Material.AIR)
             return;

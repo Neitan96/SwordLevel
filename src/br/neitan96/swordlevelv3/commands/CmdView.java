@@ -18,8 +18,6 @@ import org.bukkit.inventory.ItemStack;
  */
 public class CmdView extends CmdSwordLevel{
 
-
-
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
 

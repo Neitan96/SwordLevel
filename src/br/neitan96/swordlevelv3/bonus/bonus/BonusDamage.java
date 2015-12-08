@@ -4,6 +4,7 @@ import br.neitan96.swordlevelv3.SwordLevel;
 import br.neitan96.swordlevelv3.bonus.Bonus;
 import br.neitan96.swordlevelv3.util.DamageAmor;
 import br.neitan96.swordlevelv3.util.SwordUtil;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -56,7 +57,7 @@ public class BonusDamage extends Bonus{
 
             if(preventDurability)
                 for (ItemStack itemStack : playerSet){
-                    if(itemStack != null){
+                    if(itemStack != null && itemStack.getType() != Material.AIR){
                         short durability = itemStack.getDurability();
                         double damagePlus = damageRandom-damageEvent;
                         itemStack.setDurability((short) (durability-damagePlus));

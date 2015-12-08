@@ -24,6 +24,7 @@ import java.io.IOException;
  */
 public class SwordLevel{
 
+    private static SwordLevel instance = null;
     private static JavaPlugin plugin = null;
     private static Connector connector = null;
 
@@ -39,64 +40,123 @@ public class SwordLevel{
     private static int debugLevel = 1;
 
     public SwordLevel(){
+        instance = this;
         SwordLevel.plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("SwordLevel");
     }
 
     public void onEnable(){
-
-        saveNotExists("config pt-bt.yml");
-        saveNotExists("config.yml");
-
-        saveNotExists("pt-br.yml");
-        saveNotExists("en-us.yml");
-
-        saveNotExists("plugin pt-br.yml");
-        saveNotExists("plugin.yml");
-
-        YamlUTF8 config = getConfig("config.yml");
-
-        if(config == null){
-            Bukkit.getPluginManager().disablePlugin(plugin);
-            return;
-        }
-
-        ConfigurationSection section = config.getConfigurationSection("Plugin");
-
-        debugLevel = section.getInt("Debug", debugLevel);
-        SwordUtil.uuid = section.getBoolean("UUID", false);
-
-        prefixConsole = section.getString("Prefix.PrefixConsole");
-        prefixCommands = section.getString("Prefix.PrefixCommands");
-        prefixErrors = section.getString("Prefix.PrefixErrors");
-
-        YamlUTF8 messages = getConfig(section.getString("Messages", "pt-br.yml"));
-
-        if(messages == null){
-            logError("File the messages not exists!");
-            lang = new Lang();
-
-        }else{
-            lang = new Lang(messages);
-        }
-
-        connector = ConnectorBase.makeConnector(
-                config.getConfigurationSection("Sql"));
-
-        manager = new GroupManager();
-        manager.loadFromConfig(config.getConfigurationSection("Grupos"));
-        if(config.contains("DefaultGroup"))
-            manager.loadDefault(config.getConfigurationSection("DefaultGroup"));
-
-        leveler = new Leveler(manager);
-        bonuses = new Bonuses(manager);
-
-        plugin.getCommand("swordlevel").setExecutor(new CmdHelp());
+        loadPlugin();
     }
 
     public void onDisable(){
         HandlerList.unregisterAll(plugin);
         if(connector != null)
             connector.closeConnection();
+    }
+
+    public boolean loadPlugin(){
+        try{
+            saveNotExists("config pt-bt.yml");
+            saveNotExists("config.yml");
+
+            saveNotExists("pt-br.yml");
+            saveNotExists("en-us.yml");
+
+            saveNotExists("plugin pt-br.yml");
+            saveNotExists("plugin.yml");
+        }catch (Exception e){
+            logError("Error on save the configs: "+e.getMessage());
+            return false;
+        }
+
+        YamlUTF8 config;
+        try{
+
+            config = getConfig("config.yml");
+
+            if(config == null){
+                logError("Error on load the config.yml.");
+                return false;
+            }
+
+        }catch (Exception e){
+            logError("Error on load the config.yml: "+e.getMessage());
+            return false;
+        }
+
+        ConfigurationSection section;
+        try{
+            section = config.getConfigurationSection("Plugin");
+
+            debugLevel = section.getInt("Debug", debugLevel);
+            SwordUtil.uuid = section.getBoolean("UUID", false);
+
+            prefixConsole = section.getString("Prefix.PrefixConsole");
+            prefixCommands = section.getString("Prefix.PrefixCommands");
+            prefixErrors = section.getString("Prefix.PrefixErrors");
+
+        }catch (Exception e){
+            logError("Error on read the main configuration of plugin: "+e.getMessage());
+            return false;
+        }
+
+        YamlUTF8 messages;
+        try{
+            messages = getConfig(section.getString("Messages", "pt-br.yml"));
+
+            if(messages == null){
+                logError("File the messages not exists!");
+                lang = new Lang();
+
+            }else{
+                lang = new Lang(messages);
+            }
+
+        }catch (Exception e){
+            logError("Error on load the messages: "+e.getMessage());
+            return false;
+        }
+
+        try{
+            connector = ConnectorBase.makeConnector(
+                    config.getConfigurationSection("Sql"));
+        }catch (Exception e){
+            logError("Error on connect to database: "+e.getMessage());
+            return false;
+        }
+
+        try{
+            manager = new GroupManager();
+            manager.loadFromConfig(config.getConfigurationSection("Grupos"));
+            if(config.contains("DefaultGroup"))
+                manager.loadDefault(config.getConfigurationSection("DefaultGroup"));
+        }catch (Exception e){
+            logError("Error on load the groups: "+e.getMessage());
+            return false;
+        }
+
+        try{
+            leveler = new Leveler(manager);
+        }catch (Exception e){
+            logError("Error on enable the leveling: "+e.getMessage());
+            return false;
+        }
+
+        try{
+            bonuses = new Bonuses(manager);
+        }catch (Exception e){
+            logError("Error on enable the bonus: "+e.getMessage());
+            return false;
+        }
+
+        try{
+            plugin.getCommand("swordlevel").setExecutor(new CmdHelp());
+        }catch (Exception e){
+            logError("Error on enable the commands: "+e.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
 
@@ -210,4 +270,9 @@ public class SwordLevel{
     public static JavaPlugin getPlugin(){
         return plugin;
     }
+
+    public static SwordLevel getInstance(){
+        return instance;
+    }
+
 }
