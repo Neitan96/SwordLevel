@@ -56,6 +56,23 @@ public class SwordUtil {
         return Bukkit.getPlayer(uuid);
     }
 
+    public static OfflinePlayer getOffPlayer(String uuid){
+
+        if(SwordUtil.uuid){
+            try {
+                UUID uuidplayer = UUID.fromString(uuid);
+                final Method playerMethod = Bukkit.class.getMethod("getOfflinePlayer", uuidplayer.getClass());
+                OfflinePlayer invoke = (OfflinePlayer) playerMethod.invoke(null, uuidplayer);
+
+                if(invoke != null)
+                    return invoke;
+            } catch (Exception ignored) {}
+        }
+
+        //noinspection deprecation
+        return Bukkit.getOfflinePlayer(uuid);
+    }
+
     private static final ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
 
     public static Object eval(String str){

@@ -4,7 +4,6 @@ import br.neitan96.swordlevelv3.SwordLevel;
 import br.neitan96.swordlevelv3.storage.ranks.RankType;
 import br.neitan96.swordlevelv3.util.DValue;
 import br.neitan96.swordlevelv3.util.SwordUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -13,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Project: SwordLevel
@@ -39,9 +37,15 @@ public class CmdRankViews extends CmdSwordLevel{
         if(returnNoPermission(commandSender, this.command))
             return true;
 
-        String sql = "SELECT `{ColumnPlayer}`,`score` FROM `{TableRanks}` WHERE `type` = ? "+
-                (strings.length > 1 ? "AND `{ColumnGroup}` = ? " : "")+
-                "ORDER BY `score` DESC LIMIT 0,10";
+        String sql;
+        if(strings.length > 1)
+            sql = "SELECT `{ColumnPlayer}`,`score` FROM `{TableRanks}` WHERE `type` = ? " +
+                    "AND `{ColumnGroup}` = ? " +
+                    "ORDER BY `score` DESC LIMIT 0,10";
+        else
+            sql = "SELECT `{ColumnPlayer}`,SUM(`score`) FROM `{TableRanks}` WHERE `type` = ? "+
+                    "GROUP BY `{ColumnPlayer}` " +
+                    "ORDER BY `score` DESC LIMIT 0,10";
 
         PreparedStatement statement = SwordLevel.getConnector().getStatement(sql);
 
@@ -58,7 +62,7 @@ public class CmdRankViews extends CmdSwordLevel{
             while (result.next()){
                 String player = result.getString(1);
 
-                player = SwordUtil.uuid ? Bukkit.getOfflinePlayer(UUID.fromString(player)).getName() : player;
+                player = SwordUtil.getOffPlayer(player).getName();
 
                 scores.add(new DValue<>(player, result.getInt(2)));
             }

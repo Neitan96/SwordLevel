@@ -15,6 +15,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -36,7 +37,7 @@ public class Bonuses implements Listener{
     @EventHandler(priority = EventPriority.HIGH)
     protected void onHit(EntityDamageByEntityEvent event){
 
-        if(!(event.getDamager() instanceof Player))
+        if(!(event.getDamager() instanceof Player) || event.getCause() == EntityDamageEvent.DamageCause.PROJECTILE)
             return;
 
         Player player = (Player) event.getDamager();

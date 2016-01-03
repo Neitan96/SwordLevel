@@ -18,6 +18,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -129,7 +130,11 @@ public class Leveler implements Listener{
 
     @EventHandler(priority = EventPriority.MONITOR)
     protected void onKill(EntityDeathEvent event){
-        levelUp(event.getEntity().getKiller(), event.getEntity(), null);
+        LivingEntity entity = event.getEntity();
+        if (entity.getLastDamageCause() != null &&
+                entity.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.PROJECTILE)
+            return;
+        levelUp(entity.getKiller(), entity, null);
     }
 
 }

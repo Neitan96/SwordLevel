@@ -1,5 +1,6 @@
 package br.neitan96.swordlevelv3.leveling;
 
+import br.neitan96.swordlevelv3.SwordLevel;
 import br.neitan96.swordlevelv3.util.SwordUtil;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -70,12 +71,24 @@ public class LevelingDefault implements Leveling{
 
     @Override
     public int calculateXPRequired(int level){
-        String required = getXpRequired().replace("{level}", String.valueOf(level));
-        Object eval = SwordUtil.eval(required);
-        if(eval == null)
-            return -1;
-        int requiredXP =  (int) Math.ceil((Double) eval);
-        return requiredXP < 1 ? 1 : requiredXP;
+        try{
+
+            String required = getXpRequired().replace("{level}", String.valueOf(level));
+            Object eval = SwordUtil.eval(required);
+            if(eval == null)
+                return -1;
+
+            String evalString = String.valueOf(eval);
+
+            int requiredXP =  (int) Math.ceil(Double.parseDouble(evalString));
+
+            return requiredXP < 1 ? 1 : requiredXP;
+
+        }catch (Exception e){
+            SwordLevel.logError(e.getMessage());
+            SwordLevel.logError("LevelUp: '"+getXpRequired()+"' is inválid!");
+            return Integer.MAX_VALUE;
+        }
     }
 
     @Override
