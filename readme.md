@@ -25,7 +25,7 @@ Você pode vincular o level com o player ou pode vincular com o item, vinculando
 Ele tem um sistema de rank, podendo ver quem mais upou itens e etc, podendo colocar num banco de dados MySql caso queira exibir no seu site.
 
 ### Arquivos
-[config.yml](http://www.nathanalmeida.com.br/plugins/config/SwordLevel.yml)
+[config.yml](http://www.nathanalmeida.com.br/plugins/config/SwordLevel.yml)  
 [plugin.yml](http://www.nathanalmeida.com.br/plugins/yml/SwordLevel.yml)
 
 ### Mais

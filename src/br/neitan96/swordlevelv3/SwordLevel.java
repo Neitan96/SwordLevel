@@ -22,10 +22,9 @@ import java.io.IOException;
 /**
  * Created by neitan96 on 26/10/15.
  */
-public class SwordLevel{
+public class SwordLevel extends JavaPlugin{
 
     private static SwordLevel instance = null;
-    private static JavaPlugin plugin = null;
     private static Connector connector = null;
 
     private static String prefixConsole = null;
@@ -41,7 +40,6 @@ public class SwordLevel{
 
     public SwordLevel(){
         instance = this;
-        SwordLevel.plugin = (JavaPlugin) Bukkit.getPluginManager().getPlugin("SwordLevel");
     }
 
     public void onEnable(){
@@ -49,7 +47,7 @@ public class SwordLevel{
     }
 
     public void onDisable(){
-        HandlerList.unregisterAll(plugin);
+        HandlerList.unregisterAll(this);
         if(connector != null)
             connector.closeConnection();
     }
@@ -150,7 +148,7 @@ public class SwordLevel{
         }
 
         try{
-            plugin.getCommand("swordlevel").setExecutor(new CmdHelp());
+            getCommand("swordlevel").setExecutor(new CmdHelp());
         }catch (Exception e){
             logError("Error on enable the commands: "+e.getMessage());
             return false;
@@ -161,7 +159,7 @@ public class SwordLevel{
 
 
     public static YamlUTF8 getConfig(String configName){
-        File file = new File(plugin.getDataFolder(), configName);
+        File file = new File(instance.getDataFolder(), configName);
         try{
             return new YamlUTF8(file);
         }catch (IOException e){
@@ -235,8 +233,8 @@ public class SwordLevel{
 
 
     public static void saveNotExists(String filename){
-        File file = new File(getPlugin().getDataFolder(), filename);
-        if(!file.exists()) getPlugin().saveResource(filename, false);
+        File file = new File(getInstance().getDataFolder(), filename);
+        if(!file.exists()) getInstance().saveResource(filename, false);
     }
 
     public static String[] getMsgs(String path){
@@ -265,10 +263,6 @@ public class SwordLevel{
 
     public static Bonuses getBonuses(){
         return bonuses;
-    }
-
-    public static JavaPlugin getPlugin(){
-        return plugin;
     }
 
     public static SwordLevel getInstance(){

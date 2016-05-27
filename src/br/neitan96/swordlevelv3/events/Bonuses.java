@@ -31,7 +31,7 @@ public class Bonuses implements Listener{
 
     public Bonuses(GroupManager manager){
         this.manager = manager;
-        Bukkit.getPluginManager().registerEvents(this, SwordLevel.getPlugin());
+        Bukkit.getPluginManager().registerEvents(this, SwordLevel.getInstance());
     }
 
     @EventHandler(priority = EventPriority.HIGH)

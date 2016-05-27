@@ -76,6 +76,7 @@ public class StorageSql implements StorageLevel{
         }
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void setLevel(int level){
         level = level < 1 ? 1 : level;
@@ -122,6 +123,7 @@ public class StorageSql implements StorageLevel{
         }
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void setXp(int xp){
 

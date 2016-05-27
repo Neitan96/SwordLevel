@@ -28,7 +28,7 @@ public class ConnectorSqlite extends ConnectorBase{
     public void loadFromConfig(ConfigurationSection section){
         super.loadFromConfig(section);
         String filename = section.getString("Sqlite.Filename", "SwordLevel.db");
-        File file = new File(SwordLevel.getPlugin().getDataFolder(), filename);
+        File file = new File(SwordLevel.getInstance().getDataFolder(), filename);
 
         if(!file.exists())
             try{

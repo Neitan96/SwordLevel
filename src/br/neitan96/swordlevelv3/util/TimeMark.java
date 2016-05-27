@@ -15,7 +15,7 @@ public class TimeMark<K>{
 
 
     public List<DValue<Long, String>> getMarks(K key){
-        return marks.containsKey(key) ? marks.get(key) : new ArrayList<DValue<Long, String>>();
+        return marks.containsKey(key) ? marks.get(key) : new ArrayList<>();
     }
 
     public List<DValue<Long, String>> getMarks(K key, long start){

@@ -38,6 +38,7 @@ public class BonusDropMob extends Bonus{
         }
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void loadFromConfig(ConfigurationSection section) {
         provability = section.getInt("Provability", provability);
